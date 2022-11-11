@@ -1,4 +1,5 @@
 # tp3-kamant
+
 Un projet qui ne vas pas se terminer a la derniere minute.
 
  ***Développement de programmes dans un*** & Simulateur linéaire
@@ -8,9 +9,9 @@ Automne 2022 & Service JavaFX\
 Cégep Limoilou & Conception dapplication\
 Département dinformatique & (20 %)\
 ()
-:::
 
-> **CONTEXTE DE RÉALISATION DE L'ACTIVITÉ :**
+
+**CONTEXTE DE RÉALISATION DE L'ACTIVITÉ :**
 
 -   Durée : 5 semaines (jusquà la fin de la semaine 14)
 
@@ -19,7 +20,7 @@ Département dinformatique & (20 %)\
 -   Suivre les consignes additionnelles sur le canal *Questions
     générales* de l'équipe Teams du cours.
 
-> **OBJECTIFS**
+**OBJECTIFS**
 
 -   Concevoir une application JavaFX interactive complète
 
@@ -28,14 +29,14 @@ Département dinformatique & (20 %)\
 
 -   Gérer le projet et les ressources convenablement
 
-> **Remise**
+**Remise**
 
 -   **Changez lartifactId et le nom du projet pour remplace votre-nom
     par vos véritables noms (sans accents sans espace)**
 
 -   **Remettre une archive en format zip contenant le projet complet.**
 
-# Éléments requis: {#uxe9luxe9ments-requis}
+# Éléments requis:
 
 1.  Pour ce TP on ne vous impose pas linterface GUI. Vous être libres de
     la produire comme vous le désirez, mais en respectant les exigences
@@ -59,42 +60,38 @@ Département dinformatique & (20 %)\
                 est sélectionnée;
 
                 1.  le nom de la variable (celui qui est utilisé dans
-                    > les équations);
+                    les équations);
 
                 2.  la valeur de la variable;
 
                 3.  Toutes les simulations doivent avoir au minimum les
-                    > variables suivantes:
+                    variables suivantes:
 
                     1.  ***t*** : représentant le temps depuis le début
-                        > de la simulation.
+                        de la simulation.
 
                     2.  ***dt*** : linterval de temps en cours
 
                     3.  ***stop*** : une variable permettant de stopper
-                        > la simulation en fonction dune équation
-                        > logique;
+                        la simulation en fonction dune équation
+                        logique;
 
             3.  la liste de toutes les équations qui modifient la
-                > variable sélectionnée de la simulation sélectionnée:
+                variable sélectionnée de la simulation sélectionnée:
 
                 1.  Le nom de léquation;
 
                 2.  Lexpression mathématique de *MathXParser*. Voir
-                    > *Equation* plus loin.
+                    *Equation* plus loin.
 
         2.  Léditeur de simulation doit offrir un moyen (bouton, menu
             contextuel...) pour que lutilisateur puisse:
 
             1.  **Ajouter / modifier / effacer -\>** une simulation
 
-            2.   
+            2.  Ajouter / modifier / effacer / changer la valeur / dupliquer -\une variable
 
-                ::: {#ajouter-modifier-effacer-changer-la-valeur-dupliquer---une-variable}
-                ## Ajouter / modifier / effacer / changer la valeur / dupliquer -\> une variable
-                :::
-
-            3.  **Ajouter / modifier / effacer** -\> une équation
+            3.  **Ajouter / modifier / effacer** -\une équation
 
         3.  Lorsque lutilisateur sélectionne une simulation dans la
             première liste, la seconde liste doit afficher ses
@@ -108,10 +105,10 @@ Département dinformatique & (20 %)\
             correctement.
 
             1.  Simulation possède un historique qui est une liste de
-                > tous les états successifs qui ont été calculés. Un
-                > état est lensemble des variables dune simulation.
-                > Létat 0 est important, car il constitue les valeurs
-                > initiales desquelles repart toujours la simulation.
+                tous les états successifs qui ont été calculés. Un
+                état est lensemble des variables dune simulation.
+                Létat 0 est important, car il constitue les valeurs
+                initiales desquelles repart toujours la simulation.
 
         4.  Léditeur de simulation doit également proposer une
             fonctionnalité pour **lire** et écrire les simulations
@@ -119,16 +116,16 @@ Département dinformatique & (20 %)\
             équations).
 
             1.  Vous pouvez le faire avec des boutons ou des menus
-                > contextuels. Les fichiers peuvent être écrits en
-                > utilisant la sérialisation objet, mais attention les
-                > fichiers deviendront illisibles au fur et à mesure que
-                > vous modifierez le code.
+                contextuels. Les fichiers peuvent être écrits en
+                utilisant la sérialisation objet, mais attention les
+                fichiers deviendront illisibles au fur et à mesure que
+                vous modifierez le code.
 
             2.  Lutilisateur doit pouvoir choisir le nom et lemplacement
-                > du fichier lui-même. Utilisez un *FileChooser*
-                > (*showOpenDialog* et *showCloseDialog*). Les fichiers
-                > auront lextension \".***sim***\" ( exemple
-                > gravite**.sim**).
+                du fichier lui-même. Utilisez un *FileChooser*
+                (*showOpenDialog* et *showCloseDialog*). Les fichiers
+                auront lextension \".***sim***\" ( exemple
+                gravite**.sim**).
 
     2.  Un simulateur
 
@@ -145,9 +142,9 @@ Département dinformatique & (20 %)\
             3.  **arrêter** la simulation;
 
             4.  mettre la simulation en **pause**. Cette fonctionnalité
-                > est plus complexe, car il faut retirer le temps de
-                > pause du temps de la simulation. Vous devriez la faire
-                > à la fin.
+                est plus complexe, car il faut retirer le temps de
+                pause du temps de la simulation. Vous devriez la faire
+                à la fin.
 
         3.  Le simulateur affiche un label qui indique le temps où est
             rendue la simulation.
@@ -159,17 +156,17 @@ Département dinformatique & (20 %)\
             liste de léditeur de simulations.
 
             1.  Lutilisateur doit pouvoir choisir une variable et
-                > pendant la simulation cette variable sera mise à jour
-                > en continu dans un *LineChart*.
+                pendant la simulation cette variable sera mise à jour
+                en continu dans un *LineChart*.
 
             2.  Comme toutes les simulations sont temporelles, le
-                > *LineChart* présente toujours le temps en abscisse et
-                > la valeur de la donnée choisie en ordonnée.
+                *LineChart* présente toujours le temps en abscisse et
+                la valeur de la donnée choisie en ordonnée.
 
             3.  Pour un extra vous pouvez permettre dafficher plusieurs
-                > variables sélectionnées en même temps, mais cest
-                > significativement plus difficile. Nessayez de la faire
-                > quà la toute fin.
+                variables sélectionnées en même temps, mais cest
+                significativement plus difficile. Nessayez de la faire
+                quà la toute fin.
 
     3.  Un calculateur
 
@@ -177,12 +174,12 @@ Département dinformatique & (20 %)\
             dans le TP2. On va le modifier légèrement:
 
             1.  Au lieu davoir une liste de fonction personnalisée, on
-                > utilisera les équations du simulateur. Les équations
+                utilisera les équations du simulateur. Les équations
 
             2.  Il faut ajouter un moyen (bouton, menu contextuel...)
-                > pour permettre à lutilisateur de transférer la
-                > dernière valeur calculée vers la variable qui est
-                > sélectionnée dans la liste de léditeur de simulation.
+                pour permettre à lutilisateur de transférer la
+                dernière valeur calculée vers la variable qui est
+                sélectionnée dans la liste de léditeur de simulation.
 
     4.  (pour les équipes de 2 seulement) Une animation qui
         redimensionne et déplace chaque fenêtre à une position
@@ -219,7 +216,7 @@ bouton qui doit être évident et bien placé.
 
 1.  Sauvegarde des fichiers de simulation.
 
-# Architecture, démarche et code fourni {#architecture-duxe9marche-et-code-fourni}
+# Architecture, démarche et code fourni
 
 1.  Pour aider à vaincre le syndrome de la page blanche, on vous fournit
     quelques classes de départs et on vous propose une démarche
@@ -232,91 +229,80 @@ bouton qui doit être évident et bien placé.
         vous den assumer les conséquences. Il sera plus difficile de
         vous aider à avancer.
 
-        1.   
-
-            ::: {#simulation}
-            ### *Simulation*:
-            :::
-
+        1.  ### simulation
             1.  Cette classe est responsable de produire un nouvel Etat
-                > à partir de lancien état lorsquon appelle sa méthode
-                > *simulateStep*. Attention, la boucle de simulation
-                > principale devrait plutôt être dans
-                > *SimulationService* parce que ce dernier gère
-                > naturellement le temps, le lancement et larrêt du
-                > simulateur.
+                à partir de lancien état lorsquon appelle sa méthode
+                *simulateStep*. Attention, la boucle de simulation
+                principale devrait plutôt être dans
+                *SimulationService* parce que ce dernier gère
+                naturellement le temps, le lancement et larrêt du
+                simulateur.
 
             2.  La classe accumule également tous les résultats de
-                > simulation dans un attribut nommé *historique.* Le
-                > premier état de lhistorique contient les valeurs
-                > initiales qui proviennent de léditeur de simulation
-                > (liste de variables).
+                simulation dans un attribut nommé *historique.* Le
+                premier état de lhistorique contient les valeurs
+                initiales qui proviennent de léditeur de simulation
+                (liste de variables).
 
             3.  Pour calculer un nouvel état, il faut:
 
                 1.  À chaque pas de temps, il faut mettre à jour les
-                    > valeurs de ***t*** et ***dt*** avant de calculer
-                    > les valeurs des autres variables avec les
-                    > équations.
+                    valeurs de ***t*** et ***dt*** avant de calculer
+                    les valeurs des autres variables avec les
+                    équations.
 
                 2.  À chaque pas de temps il faut recalculer chaque
-                    > variable qui possède des équations. **IMPORTANT**
-                    > pour chacune, il faut additionner la contribution
-                    > de chaque équation à la valeur actuelle (au début
-                    > du pas de temps) de la variable.
+                    variable qui possède des équations. **IMPORTANT**
+                    pour chacune, il faut additionner la contribution
+                    de chaque équation à la valeur actuelle (au début
+                    du pas de temps) de la variable.
 
                 3.  Les résultats sont placés dans un nouvel état qui
-                    > sera retourné par la méthode
+                    sera retourné par la méthode
 
         2.   
 
-            ::: {#simulationservice}
+             {#simulationservice}
             ### *SimulationService*:
-            :::
+
 
             1.  Cette classe est un service JavaFX et elle est
-                > responsable de gérer le temps de la simulation. Elle
-                > doit appeler la méthode *simuleStep* de la simulation
-                > sélectionnée en lui envoyant le temps actuel et
-                > lintervalle de temps. Elle doit également envoyer
-                > létat actuel :
+                responsable de gérer le temps de la simulation. Elle
+                doit appeler la méthode *simuleStep* de la simulation
+                sélectionnée en lui envoyant le temps actuel et
+                lintervalle de temps. Elle doit également envoyer
+                létat actuel :
 
                 1.  Lorsquon redémarre la simulation on doit repartir de
-                    > létat 0, si on redémarre après une pause il faut
-                    > repartir du dernier état simulé.
+                    létat 0, si on redémarre après une pause il faut
+                    repartir du dernier état simulé.
 
             2.  Le simulateur devrait pouvoir sarrêter par lui-même en
-                > fonction des états présents (par exemple lorsquun
-                > objet sort du cadre). Pour cela, il faut surveiller
+                fonction des états présents (par exemple lorsquun
+                objet sort du cadre). Pour cela, il faut surveiller
 
         3.   
 
-            ::: {#etat}
+             {#etat}
             ### *Etat*
-            :::
+
 
 la variable nommée *stop*. La simulation sarrête lorsque stop est vrai
 ou lorsquelle est interrompue par lutilisateur.
 
 1.  Cest principalement une classe de données. Elle contient toutes les
-    > variables de la simulation pour un pas de temps.
+    variables de la simulation pour un pas de temps.
 
 2.  Cette classe possède un constructeur par recopie qui déclenche une
-    > copie profonde (deep copy) de toutes les variables et équations
-    > contenues. Le nouvel objet et tous ces constituants sont donc
-    > complètement distincts de lobjet original.
+    copie profonde (deep copy) de toutes les variables et équations
+    contenues. Le nouvel objet et tous ces constituants sont donc
+    complètement distincts de lobjet original.
 
-```{=html}
-<!-- -->
-```
-1.   
-
-    ::: {#variables}
-    ### *Variables*
-    :::
+---
+1.  ### *Variables*
 
     1.  Possède un nom: qui peut être utilisé dans les équations
-        > MathXParser (pas despace, de caractères spéciaux ou daccents).
+        MathXParser (pas despace, de caractères spéciaux ou daccents).
 
     2.  Possède une valeur numérique de type double
 
@@ -326,17 +312,13 @@ ou lorsquelle est interrompue par lutilisateur.
         la modifier.
 
     5.  *MathXParser* ne reconnaît pas les variables du simulateur cest
-        > pourquoi on a laissé des méthodes de conversion dans la classe
-        > *Simulation*.
+        pourquoi on a laissé des méthodes de conversion dans la classe
+        *Simulation*.
 
-2.   
-
-    ::: {#equations}
-    ### *Equations*
-    :::
+2.  ### *Equations*
 
     1.  Possède un nom: qui nest pas utilisé par *MathParser*. Cest pour
-        > vous aider à lidentifier.
+        vous aider à lidentifier.
 
         1.  Possède une expression mathématique de la forme:
 
@@ -347,19 +329,15 @@ ou lorsquelle est interrompue par lutilisateur.
         2.  Il est essentiel que:
 
             1.  toutes les variables utilisées soient définies dans la
-                > simulation;
+                simulation;
 
             2.  toutes les variables utilisées soient dans la
-                > déclaration de la fonction.
+                déclaration de la fonction.
 
-> Contre exemple: *f(x,t)=x+t+y* ne fonctionnera pas parce que *y* nest
-> pas dans *f(x,t)*. Il faudrait écrire ***f(x,y,t)=x+y+t***
+Contre exemple: *f(x,t)=x+t+y* ne fonctionnera pas parce que *y* nest
+pas dans *f(x,t)*. Il faudrait écrire ***f(x,y,t)=x+y+t***
 
-1.   
-
-    ::: {#duxe9marche-proposuxe9e}
-    ## Démarche proposée {#duxe9marche-proposuxe9e}
-    :::
+1.   ## Démarche proposée
 
     1.  *Moteur de calcul*
 
@@ -375,8 +353,8 @@ ou lorsquelle est interrompue par lutilisateur.
             3.  Une équation impliquant le pas de temps *f(t,x) = x+t*.
 
             4.  Assurez-vous que lhistorique possède tous les états et
-                > quils sont bien indépendants les uns des autres. Vous
-                > pouvez vérifier en utilisant le débogueur.
+                quils sont bien indépendants les uns des autres. Vous
+                pouvez vérifier en utilisant le débogueur.
 
         2.  Programmez ensuite *SimulationService* et assurez-vous que
             le temps et le pas de temps sont bien mis à jour. Au début,
@@ -392,9 +370,8 @@ ou lorsquelle est interrompue par lutilisateur.
 
     2.  *UI*
 
-```{=html}
-<!-- -->
-```
+---
+
 1.  Décidez de lorganisation de votre application ( faites les fichiers
     FXML). Restez simple, cest plus facile daugmenter la complexité que
     de la simplifier !
@@ -431,7 +408,7 @@ ou lorsquelle est interrompue par lutilisateur.
 
         -   *Liste.getSelectionModel().getSelectedItem().addListener(callback);*
 
-# Barème D'évaluation : {#baruxe8me-duxe9valuation}
+# Barème D'évaluation :
 
 -   Linterface est propre, bien documentée et **intuitive** (utilisez
     les tooltips au besoin).
@@ -467,9 +444,11 @@ ou lorsquelle est interrompue par lutilisateur.
 -   Des solutions efficaces ont été utilisées pour résoudre les
     problèmes (ex : classe *Function* sans méthode
 
-> *toString*)
+*toString*)
+
 >
-> **À REMETTRE :**
+
+**À REMETTRE :**
 
 -   Il est à remettre [à la date indiquée sur Léa.]{.underline}
 
