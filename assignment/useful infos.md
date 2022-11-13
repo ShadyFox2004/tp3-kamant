@@ -1,0 +1,7 @@
+-   ListView
+	-   Pour consulter les éléments d'un *ListView*
+	-   *List.getItems()*
+	-   Pour connaître l'élément sélectionné
+	-   *Liste.getSelectionModel().getSelectedItem();*
+	-   Pour réagir à un changement de sélection
+	-   *Liste.getSelectionModel().getSelectedItem().addListener(callback);*
