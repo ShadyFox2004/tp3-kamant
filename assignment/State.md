@@ -1,0 +1,3 @@
+la variable nommée *stop*. La simulation sarrête lorsque stop est vrai ou lorsquelle est interrompue par lutilisateur.
+1.  Cest principalement une classe de données. Elle contient toutes les variables de la simulation pour un pas de temps.
+2.  Cette classe possède un constructeur par recopie qui déclenche une copie profonde (deep copy) de toutes les variables et équations contenues. Le nouvel objet et tous ces constituants sont donc complètement distincts de lobjet original.

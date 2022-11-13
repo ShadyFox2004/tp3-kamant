@@ -1,0 +1,13 @@
+-   Linterface est propre, bien documentée et **intuitive** (utilisez les tooltips au besoin).
+-   La simulation personnalisée est originale et suffisamment complexe (pour les équipes de 2).
+-   La classe *DialoguesUtils* est la seule qui peut utiliser les *dialogues JavaFX.*
+-   Le code est propre et bien formaté.
+-   Toutes les fonctionnalités ont été réalisées.
+-   Toutes les exigences ont été rencontrées.
+-   Aucune méthode ne dépasse 50 lignes (incluant javadoc et commentaires)
+-   Il ny a pas de [[id]] ou méthode inutile dans le code.
+-   Toutes les consignes ont bien été suivies et tous les comportements fonctionnent sans problème. 
+-   Les méthodes que vous avez programmées ou modifiées ont une javadoc conforme et des commentaires pertinents.
+-   Les fonctions sont bien découpées. Les noms des méthodes sont clairs et significatifs. Il n'y a pas de code dupliqué ou redondant.
+-   Il n'y a pas de *StackTrace* dans la console *IntelliJ.*
+-   Des solutions efficaces ont été utilisées pour résoudre les problèmes (ex : classe *Function* sans méthode *toString*)
