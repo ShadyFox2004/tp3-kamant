@@ -1,3 +1,4 @@
+#scene
 Un simulateur
 1.  Le simulateur doit pouvoir connaître léquation qui est sélectionnée dans léditeur déquation. Cest cette dernière qui sera simulée.
 2.  Le simulateur doit permettre de:

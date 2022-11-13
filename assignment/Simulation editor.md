@@ -1,3 +1,4 @@
+#scene
 Un éditeur de simulation:
 1. L'éditeur de simulation doit comprendre au moins 3 *ListView*:
 	1. la liste de toutes les simulations connues. Cette liste affiche:
