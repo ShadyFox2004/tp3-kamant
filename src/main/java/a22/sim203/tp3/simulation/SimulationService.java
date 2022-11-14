@@ -96,7 +96,10 @@ public class SimulationService extends Service<Void> {
         return paused;
     }
 
-
+    /**
+     * Pauses or unpauses the simulation
+     * @param paused
+     */
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
