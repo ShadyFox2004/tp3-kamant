@@ -1,14 +1,9 @@
 package a22.sim203.tp3.simulation;
 
 
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import org.mariuszgromada.math.mxparser.Argument;
 import org.mariuszgromada.math.mxparser.Function;
 
-import java.security.Provider;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +12,8 @@ import static java.lang.Thread.interrupted;
 
 /**
  * Makes the service run on an independent state
- * @author Kamran Charles Nayebi
  */
-public class SimulationService extends Service<Void> {
+public class SimulationService  {
 
     private Simulation simulation;
 
@@ -103,7 +97,5 @@ public class SimulationService extends Service<Void> {
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
-
-
 
 }
