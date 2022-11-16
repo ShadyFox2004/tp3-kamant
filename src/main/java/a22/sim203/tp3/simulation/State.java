@@ -50,7 +50,7 @@ public class State implements Serializable {
 
     @Override
     public String toString() {
-        return "Etat{" +
+        return "State{" +
                 "variableList=" + variableMap +
                 '}';
     }
