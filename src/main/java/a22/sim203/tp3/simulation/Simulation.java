@@ -26,7 +26,7 @@ public class Simulation implements Serializable {
 
     /**
      * Generates a step of the equation
-     * @param t time since the start of the simulation
+     * @param t time
      * @param dt time between the two frames
      * @param initialState initial state
      * @return final state

@@ -1,13 +1,9 @@
 package a22.sim203.tp3.simulation;
 
 
-import a22.sim203.tp3.exception.InvalidSimulationException;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import org.mariuszgromada.math.mxparser.Argument;
 import org.mariuszgromada.math.mxparser.Function;
 
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,18 +11,12 @@ import java.util.Map;
 import static java.lang.Thread.interrupted;
 
 /**
- * Makes the simulation run on an independent service
+ * Makes the service run on an independent state
  */
-public class SimulationService extends Service<a22.sim203.tp3.simulation.State> {
+public class SimulationService  {
 
-    /**
-     * Simulation object, cannot be displayed in real time by javafx, use the clone constructor instead
-     */
     private Simulation simulation;
-    /**
-     * the time in milliseconds between January 1, 1970, 00:00:00 GTM and when the last frame was generated
-     * Standard time stored on the motherboard, can be had by calling System.currentTimeMillis()
-     */
+
     private long absoluteStartTime;
 
     private double targetDeltaTime;
@@ -39,7 +29,7 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
      * @param targetDeltaTime the target for the time in between simulation steps
      * @param paused states if the simulation is running
      */
-    public SimulationService(Simulation simulation, double targetDeltaTime, boolean paused){
+    SimulationService(Simulation simulation, double targetDeltaTime, boolean paused){
         setSimulation(simulation);
         setTargetDeltaTime(targetDeltaTime);
         setPaused(paused);
@@ -50,7 +40,7 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
      * @return a simulation task
      */
     @Override
-    protected Task<a22.sim203.tp3.simulation.State> createTask() {
+    protected Task<Void> createTask() {
         setAbsoluteStartTime(System.currentTimeMillis());
         return new simulationTask();
     }
@@ -58,16 +48,10 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
     /**
      * Task that creates a new state from another state
      */
-    private class simulationTask extends Task<a22.sim203.tp3.simulation.State> {
+    private class simulationTask extends Task<Void> {
 
         @Override
-        protected a22.sim203.tp3.simulation.State call() throws Exception {
-            while (!isPaused() && isRunning()){
-                setAbsoluteStartTime(System.currentTimeMillis());
-                Thread.sleep((long)(targetDeltaTime * 1000));
-                updateValue(simulation.simulateStep(simulation.getHistory().get(0).getVariable("t").getValue(), (double) (System.currentTimeMillis() - absoluteStartTime)/1000, simulation.getHistory().get(0)));
-                simulation.addInHistory(getValue());
-            }
+        protected Void call() throws Exception {
             return null;
         }
     }
@@ -77,10 +61,6 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
     }
 
     public void setSimulation(Simulation simulation) {
-        if (simulation == null)
-            throw new InvalidSimulationException("simulation is null");
-        if (simulation.getHistory().size() == 0)
-            throw new InvalidSimulationException("please set an initial state at index 0 of history");
         this.simulation = simulation;
     }
 
@@ -89,13 +69,12 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
     }
 
     /**
-     * Sets the absolute time since the last frame was created
-     * @param absoluteStartTime the time in milliseconds between January 1, 1970, 00:00:00 GTM and when the last frame was generated
+     * Sets the absolute time since the start of the simulation
+     * @warning This can very easily break things, use only when there is no other way to do things
+     * @param absoluteStartTime the time in milliseconds since January 1, 1970, 00:00:00 GTM when the simulation is first run
      *      *                          (standard time stored on the motherboard, can be had by calling System.currentTimeMillis())
      */
-    private void setAbsoluteStartTime(long absoluteStartTime) {
-        if (absoluteStartTime < 0)
-            throw new DateTimeException("Cannot have negative time");
+    public void setAbsoluteStartTime(long absoluteStartTime) {
         this.absoluteStartTime = absoluteStartTime;
     }
 
@@ -104,8 +83,6 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
     }
 
     public void setTargetDeltaTime(double targetDeltaTime) {
-        if (targetDeltaTime < 0)
-            throw new DateTimeException("Cannot have negative delta time");
         this.targetDeltaTime = targetDeltaTime;
     }
 
@@ -115,7 +92,7 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
 
     /**
      * Pauses or unpauses the simulation
-     * @param paused if you want the simulation to be paused
+     * @param paused
      */
     public void setPaused(boolean paused) {
         this.paused = paused;
