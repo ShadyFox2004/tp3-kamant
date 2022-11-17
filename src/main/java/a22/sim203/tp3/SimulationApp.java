@@ -31,14 +31,13 @@ public class SimulationApp extends Application {
         //Service
         Map<String, Variable> variables = new HashMap<>();
         Variable variableAvecEquations;
-        variables.put("dt", new Variable("dt", 3));
-        variables.put("t", new Variable("t", 3));
+        variables.put("dt", new Variable("dt", 0));
+        variables.put("t", new Variable("t", 0));
         variableAvecEquations = new Variable("a", 5);
-        variableAvecEquations.addEquation(new Equation("divide in two", "f(a)=a/2"));
+        variableAvecEquations.addEquation(new Equation("divide in two", "f(a,t)= a + 2*t"));
         variables.put("a", variableAvecEquations);
         variableAvecEquations = new Variable("b", 5);
         variableAvecEquations.addEquation(new Equation("add a times time", "f(b,a,t)=b+a*t"));
-        variableAvecEquations.addEquation(new Equation("test", "f(x)=30"));
         variables.put("b", variableAvecEquations);
         variableAvecEquations = new Variable("v", 5);
         variableAvecEquations.addEquation(new Equation("speed", "f(v,a,t)=v+a*t"));
@@ -48,11 +47,11 @@ public class SimulationApp extends Application {
         variables.put("x", variableAvecEquations);
         List<State> history = new ArrayList<>();
         history.add(new State(variables));
-        Simulation simulation = new Simulation("projectile", history);
-        SimulationService service = new SimulationService(simulation, 0.1, false);
+        SimulationUpdaterService service = new SimulationUpdaterService(new Simulation("projectile", history), 0.000001, 1);
         service.valueProperty().addListener((observable,oldVal,newVal)->{
             if (newVal != null) {
-                root.setText(newVal.toString());
+                //root.setText(newVal.toString());
+                System.out.println(newVal.toString());
             }
         });
         service.restart();

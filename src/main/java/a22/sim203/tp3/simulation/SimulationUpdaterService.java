@@ -91,13 +91,13 @@ public class SimulationUpdaterService extends Service<State> {
          */
         @Override
         protected a22.sim203.tp3.simulation.State call() throws Exception {
-            SimulationService service = new SimulationService(observedSimulation, 0.1, false);
+            SimulationService service = new SimulationService(observedSimulation, targetSimulationDelta, false);
             service.valueProperty().addListener((observable,oldVal,newVal)->{
                 if (newVal != null)
                     setLastState(newVal);
             });
             service.restart();
-            while (!isPaused() && isRunning()) {
+            while (!isPaused() && !isCancelled()) {
                 Thread.sleep((long)(targetQueryDelta * 1000));
                 updateValue(lastState);
             }
