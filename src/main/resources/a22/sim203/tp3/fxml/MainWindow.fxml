@@ -14,7 +14,14 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Simulation" />
+          <Tab text="Simulation">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <fx:include source="Simulator.fxml" />
+                     </children>
+                  </HBox>
+               </content></Tab>
           <Tab text="Editor">
                <content>
                   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0">
