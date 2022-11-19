@@ -1,0 +1,48 @@
+BorderPane { 
+    -fx-min-width: 300;
+    -fx-min-height:300;
+    -fx-padding: 3;
+}
+
+.button {
+    -fx-border-radius: 1;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 2;
+    -fx-background-radius: 1;
+}
+
+TextField { 
+    -fx-background-color: linear-gradient(to bottom right, green, grey);
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+    -fx-border-width: 3;
+    -fx-background-radius: 9;
+}
+
+GridPane {
+    -fx-background-color: gray;
+    -fx-border-color: green;
+}
+/*.button:hover {
+    -fx-border-color: lightblue;
+}*/
+
+.button {
+    -fx-background-color: linear-gradient(to bottom right, white, grey);
+    -fx-alignment: center;
+}
+ 
+
+.functionButton {
+    -fx-text-fill: white;
+    
+}
+
+.functionButton .text { 
+    -fx-effect: dropshadow(one-pass-box,white,8,0.0,2,0); 
+}
+
+.list-view:vertical {
+    -fx-background-radius: 2;
+    -fx-border-color: black;
+}
