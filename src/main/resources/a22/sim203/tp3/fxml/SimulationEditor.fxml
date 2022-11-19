@@ -5,22 +5,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" HBox.hgrow="ALWAYS" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="REMOVE" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <ListView fx:id="simulationList" prefHeight="451.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="simulationList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="451.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <ListView fx:id="variableList" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="equationList" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="variableList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+      <ListView fx:id="equationList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
    </children>
 </HBox>
