@@ -6,9 +6,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Simulator">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <LineChart fx:id="simulationChart">
+      <LineChart>
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -16,6 +16,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <ListView fx:id="history" prefHeight="200.0" prefWidth="200.0" />
+      <ListView prefHeight="383.0" prefWidth="185.0" />
    </children>
 </HBox>
