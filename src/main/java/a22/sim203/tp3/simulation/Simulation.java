@@ -98,4 +98,9 @@ public class Simulation implements Serializable {
         this.history = history;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return Objects.equals(name, ((Simulation)o).name) && Objects.equals(history, ((Simulation)o).history);
+    }
+
 }
