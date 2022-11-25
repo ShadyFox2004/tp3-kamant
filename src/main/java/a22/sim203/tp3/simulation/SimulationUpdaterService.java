@@ -11,7 +11,7 @@ import java.time.DateTimeException;
  */
 public class SimulationUpdaterService extends Service<State> {
 
-    Simulation observedSimulation;
+    SimulationService observedService;
 
     double targetSimulationDelta;
 
@@ -52,11 +52,17 @@ public class SimulationUpdaterService extends Service<State> {
             throw new InvalidSimulationException("simulation is null");
         if (observedSimulation.getHistory().size() == 0)
             throw new InvalidSimulationException("please set an initial state at index 0 of history");
-        this.observedSimulation = observedSimulation;
+        SimulationService service = new SimulationService(observedSimulation, targetSimulationDelta, false);
+        service.valueProperty().addListener((observable,oldVal,newVal)->{
+            if (newVal != null)
+                setLastState(newVal);
+        });
+        service.restart();
+        this.observedService = service;
     }
 
-    public Simulation getObservedSimulation() {
-        return observedSimulation;
+    public SimulationService getObservedService() {
+        return observedService;
     }
 
     public boolean isPaused() {
@@ -69,6 +75,7 @@ public class SimulationUpdaterService extends Service<State> {
      */
     public void setPaused(boolean paused) {
         this.paused = paused;
+        observedService.setPaused(paused);
     }
 
     public void setLastState(a22.sim203.tp3.simulation.State lastState) {
@@ -91,20 +98,14 @@ public class SimulationUpdaterService extends Service<State> {
          */
         @Override
         protected a22.sim203.tp3.simulation.State call() throws Exception {
-            SimulationService service = new SimulationService(observedSimulation, targetSimulationDelta, false);
-            service.valueProperty().addListener((observable,oldVal,newVal)->{
-                if (newVal != null)
-                    setLastState(newVal);
-            });
-            service.restart();
-            while (!isPaused() && !isCancelled()) {
-                Thread.sleep((long)(targetQueryDelta * 1000));
-                updateValue(lastState);
+            while (!isCancelled()) {
+                if (!isPaused()) {
+                    Thread.sleep((long) (targetQueryDelta * 1000));
+                    updateValue(lastState);
+                }
             }
-            if (isPaused())
-                service.setPaused(true);
             if (!isRunning())
-                service.cancel();
+                observedService.cancel();
             return null;
         }
     }

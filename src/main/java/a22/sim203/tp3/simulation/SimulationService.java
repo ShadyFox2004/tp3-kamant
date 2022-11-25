@@ -62,12 +62,14 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
 
         @Override
         protected a22.sim203.tp3.simulation.State call() throws Exception {
-            while (!isPaused() && !isCancelled()){
+            while (!isCancelled()){
                 setAbsoluteStartTime(System.currentTimeMillis());
-                Thread.sleep((long)(targetDeltaTime * 1000));
-                a22.sim203.tp3.simulation.State calculatedState = simulation.simulateStep(simulation.getHistory().get(simulation.getHistory().size()-1).getVariable("t").getValue() + (double) (System.currentTimeMillis() - absoluteStartTime)/1000, (double) (System.currentTimeMillis() - absoluteStartTime)/1000, simulation.getHistory().get(simulation.getHistory().size()-1));
-                updateValue(calculatedState);
-                simulation.addInHistory(calculatedState);
+                Thread.sleep((long) (targetDeltaTime * 1000));
+                if (!isPaused()) {
+                    a22.sim203.tp3.simulation.State calculatedState = simulation.simulateStep(simulation.getHistory().get(simulation.getHistory().size() - 1).getVariable("t").getValue() + (double) (System.currentTimeMillis() - absoluteStartTime) / 1000, (double) (System.currentTimeMillis() - absoluteStartTime) / 1000, simulation.getHistory().get(simulation.getHistory().size() - 1));
+                    updateValue(calculatedState);
+                    simulation.addInHistory(calculatedState);
+                }
             }
             return null;
         }
