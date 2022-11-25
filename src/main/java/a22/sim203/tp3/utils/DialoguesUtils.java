@@ -1,4 +1,4 @@
-package a22.sim203.tp3;
+package a22.sim203.tp3.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;

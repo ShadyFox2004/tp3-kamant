@@ -1,4 +1,4 @@
-package a22.sim203.tp3;
+package a22.sim203.tp3.utils;
 
 import a22.sim203.tp3.simulation.Simulation;
 import javafx.stage.FileChooser;
