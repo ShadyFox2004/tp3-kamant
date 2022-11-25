@@ -5,12 +5,11 @@ import javafx.scene.control.TextInputDialog;
 import org.mariuszgromada.math.mxparser.Function;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Dialogues utilities for 
  */
-public class DialoguesUtils {
+public class DialogUtils {
     /**
      * Creates an alert from the exeception message
      * @param exception
