@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -24,7 +25,7 @@ public class SimulationApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Label root = new Label("tread activate");
+        Button root = new Button("pause");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
@@ -47,17 +48,18 @@ public class SimulationApp extends Application {
         variables.put("x", variableAvecEquations);
         List<State> history = new ArrayList<>();
         history.add(new State(variables));
-        SimulationUpdaterService service = new SimulationUpdaterService(new Simulation("projectile", history), 0.000001, 1);
+        SimulationUpdaterService service = new SimulationUpdaterService(new Simulation("projectile", history), 0.01, 0.5);
         service.valueProperty().addListener((observable,oldVal,newVal)->{
             if (newVal != null) {
                 //root.setText(newVal.toString());
                 System.out.println(newVal.toString());
             }
         });
+        root.setOnAction((e)->{
+            service.setPaused(!service.isPaused());
+        });
         service.restart();
     }
-
-
 
     public static void main(String[] args) {
         launch();
