@@ -1,5 +1,6 @@
 package a22.sim203.tp3;
 
+import a22.sim203.tp3.controller.MainWindow;
 import a22.sim203.tp3.simulation.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,7 +26,10 @@ public class SimulationApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Button root = new Button("pause");
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("fxml/MainWindow.fxml"));
+        Parent root = fxmlLoader.load();
+        MainWindow mainWindow = fxmlLoader.getController();
+
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
@@ -54,9 +58,6 @@ public class SimulationApp extends Application {
                 //root.setText(newVal.toString());
                 System.out.println(newVal.toString());
             }
-        });
-        root.setOnAction((e)->{
-            service.setPaused(!service.isPaused());
         });
         service.restart();
     }
