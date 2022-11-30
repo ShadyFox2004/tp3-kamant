@@ -4,6 +4,7 @@ import a22.sim203.tp3.simulation.Equation;
 import a22.sim203.tp3.simulation.Simulation;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.simulation.Variable;
+import a22.sim203.tp3.utils.SaveUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

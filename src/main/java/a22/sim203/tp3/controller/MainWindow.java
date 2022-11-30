@@ -1,13 +1,12 @@
-package controller;
-
-/**
- * Sample Skeleton for 'MainWindow.fxml' Controller Class
- */
+package a22.sim203.tp3.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
+/**
+ * Sample Skeleton for 'MainWindow.fxml' Controller Class
+ */
 public class MainWindow {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
