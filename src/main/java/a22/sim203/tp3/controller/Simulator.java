@@ -7,8 +7,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.ListView;
 
 /**
- * Sample Skeleton for 'Simulator.fxml' Controller Class
- * TODO change it
+ * Simulator tab that shows a chart of different variables
  */
 public class Simulator {
 
@@ -30,5 +29,7 @@ public class Simulator {
         assert simulationChart != null : "fx:id=\"simulationChart\" was not injected: check your FXML file 'Simulator.fxml'.";
 
     }
+
+
 
 }
