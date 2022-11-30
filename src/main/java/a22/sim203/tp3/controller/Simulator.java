@@ -2,6 +2,8 @@ package a22.sim203.tp3.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import a22.sim203.tp3.simulation.Simulation;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ListView;
@@ -28,6 +30,20 @@ public class Simulator {
     void initialize() {
         assert history != null : "fx:id=\"history\" was not injected: check your FXML file 'Simulator.fxml'.";
         assert simulationChart != null : "fx:id=\"simulationChart\" was not injected: check your FXML file 'Simulator.fxml'.";
+    }
+
+    /**
+     * Adds a point to the graph
+     * @param simulation
+     */
+    void updateGraph(Simulation simulation){
+
+    }
+
+    /**
+     * Clears the graph
+     */
+    void clearGraph() {
 
     }
 
