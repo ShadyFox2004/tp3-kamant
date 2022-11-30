@@ -1,6 +1,4 @@
-/**
- * Sample Skeleton for 'Simulator.fxml' Controller Class
- */
+package a22.sim203.tp3.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ListView;
 
+/**
+ * Sample Skeleton for 'Simulator.fxml' Controller Class
+ * TODO change it
+ */
 public class Simulator {
 
     @FXML // ResourceBundle that was given to the FXMLLoader

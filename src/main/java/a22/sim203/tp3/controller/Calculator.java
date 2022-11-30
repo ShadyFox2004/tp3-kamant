@@ -19,8 +19,8 @@ import org.mariuszgromada.math.mxparser.Function;
 
 import java.util.*;
 
-import static a22.sim203.tp3.utils.DialoguesUtils.createAlert;
-import static a22.sim203.tp3.utils.DialoguesUtils.createFunctionDialogue;
+import static a22.sim203.tp3.utils.DialogUtils.createAlert;
+import static a22.sim203.tp3.utils.DialogUtils.createFunctionDialogue;
 
 public class Calculator extends BorderPane {
     public final Function[] DEFAULT_FUNCTIONS = {
