@@ -1,12 +1,13 @@
-/**
- * Sample Skeleton for 'SimulationEditor.fxml' Controller Class
- */
+package a22.sim203.tp3.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
+/**
+ * Sample Skeleton for 'SimulationEditor.fxml' Controller Class
+ */
 public class SimulationEditor {
 
     @FXML // ResourceBundle that was given to the FXMLLoader

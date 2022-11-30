@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.calculatortp2.CalculatorController">
    <children>
       <ListView fx:id="functions" prefHeight="627.0" prefWidth="132.0" stylesheets="@styles.css" HBox.hgrow="ALWAYS" />
@@ -70,7 +69,7 @@
                   <Button layoutX="10.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="9" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                   <Button layoutX="10.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="-" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                   <Button layoutX="310.0" layoutY="211.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="+" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <Button layoutX="310.0" layoutY="211.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="*" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <Button layoutX="310.0" layoutY="211.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="3" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                   <Button layoutX="310.0" layoutY="211.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="/" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <Button layoutX="110.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text="(" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button layoutX="210.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addElementInDisplay" text=")" GridPane.columnIndex="2" GridPane.rowIndex="2" />
