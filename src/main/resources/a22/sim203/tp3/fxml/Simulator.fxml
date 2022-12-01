@@ -3,12 +3,11 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.tp3.controller.Simulator">
    <children>
-      <LineChart>
+      <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10000.0" prefWidth="10000.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -16,6 +15,5 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <ListView prefHeight="383.0" prefWidth="185.0" />
    </children>
 </HBox>
