@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.calculatortp2.CalculatorController">
+<HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.tp3.controller.Calculator">
    <children>
       <ListView fx:id="functions" prefHeight="627.0" prefWidth="132.0" stylesheets="@styles.css" HBox.hgrow="ALWAYS" />
       <VBox HBox.hgrow="ALWAYS">
