@@ -55,7 +55,6 @@ public class SimulationApp extends Application {
         SimulationUpdaterService service = new SimulationUpdaterService(new Simulation("projectile", history), 0.01, 0.5);
         service.valueProperty().addListener((observable,oldVal,newVal)->{
             if (newVal != null) {
-                //root.setText(newVal.toString());
                 System.out.println(newVal.toString());
             }
         });

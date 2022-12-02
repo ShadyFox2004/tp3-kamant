@@ -52,6 +52,7 @@ public class SimulationUpdaterService extends Service<State> {
             throw new InvalidSimulationException("simulation is null");
         if (observedSimulation.getHistory().size() == 0)
             throw new InvalidSimulationException("please set an initial state at index 0 of history");
+
         SimulationService service = new SimulationService(observedSimulation, targetSimulationDelta, false);
         service.valueProperty().addListener((observable,oldVal,newVal)->{
             if (newVal != null)
@@ -102,6 +103,8 @@ public class SimulationUpdaterService extends Service<State> {
                 if (!isPaused()) {
                     Thread.sleep((long) (targetQueryDelta * 1000));
                     updateValue(lastState);
+                    if (observedService.isPaused())
+                        setPaused(true);
                 }
             }
             if (!isRunning())
