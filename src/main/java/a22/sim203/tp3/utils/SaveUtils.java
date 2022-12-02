@@ -1,6 +1,7 @@
 package a22.sim203.tp3.utils;
 
 import a22.sim203.tp3.simulation.Simulation;
+import javafx.beans.property.ObjectProperty;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -18,7 +19,9 @@ public class SaveUtils {
      */
     public static void saveSimulation(Simulation simulation, Stage stage){
         FileChooser fileChooser = new FileChooser();
+        fileChooser.initialFileNameProperty().setValue(".sim");
         fileChooser.setTitle("Choose simulation save file location");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Simulation file", "*.sim"));
         File selectedFile = fileChooser.showSaveDialog(stage);
         if (selectedFile != null){
             try {
@@ -38,6 +41,7 @@ public class SaveUtils {
      */
     public static void saveSimulation(Simulation simulation, String fileLocation){
         FileChooser fileChooser = new FileChooser();
+        fileChooser.initialFileNameProperty().setValue(".sim");
         fileChooser.setTitle("Choose simulation save file location");
         File selectedFile = new File(fileLocation);
         if (selectedFile != null){
@@ -59,6 +63,7 @@ public class SaveUtils {
     public static Simulation loadSimulation(Stage stage) {
         Simulation simulation = null;
         FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Simulation file", "*.sim"));
         fileChooser.setTitle("Choose simulation file to load");
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null){
