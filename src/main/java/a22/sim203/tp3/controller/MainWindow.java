@@ -74,7 +74,7 @@ public class MainWindow {
      * Starts the simulation
      */
     void onStart(){
-
+        // TODO implement onStart
     }
 
     /**
@@ -82,6 +82,6 @@ public class MainWindow {
      * @param state the new state
      */
     void update(State state){
-
+        // TODO implement update
     }
 }

@@ -3,7 +3,9 @@ package a22.sim203.tp3.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import a22.sim203.tp3.factory.SimulationCellFactory;
 import a22.sim203.tp3.simulation.Simulation;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
@@ -22,18 +24,27 @@ public class SimulationEditor {
     private ListView<?> equationList; // Value injected by FXMLLoader
 
     @FXML // fx:id="simulationList"
-    private ListView<?> simulationList; // Value injected by FXMLLoader
+    private ListView<Simulation> simulationList; // Value injected by FXMLLoader
 
     @FXML // fx:id="variableList"
-    private ListView<?> variableList; // Value injected by FXMLLoader
+    private ListView<?> variableList; // Value injected by FXMLLoade
+
+
 
     /**
      * Pointer to the history controller to request and set history
+     */
+
+    /**
+     * Set the simulation list
+     * @param simulationList  simulation list
      */
     private History history;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        simulationList.setCellFactory(new SimulationCellFactory());
+
         assert equationList != null : "fx:id=\"equationList\" was not injected: check your FXML file 'SimulationEditor.fxml'.";
         assert simulationList != null : "fx:id=\"simulationList\" was not injected: check your FXML file 'SimulationEditor.fxml'.";
         assert variableList != null : "fx:id=\"variableList\" was not injected: check your FXML file 'SimulationEditor.fxml'.";
@@ -45,20 +56,22 @@ public class SimulationEditor {
      * @param simulation Simulation to be added
      */
     public void addSimulation(Simulation simulation){
-
+        simulationList.getItems().add(simulation);
+        simulationList.getSelectionModel().select(simulation);
     }
 
     /**
      * Returns the selected simulation
      */
     public Simulation getSimulation() {
-        return null;
+        return (simulationList.getSelectionModel().getSelectedItem());
     }
 
     /**
      * Returns the simulation with a specific name
      */
     public Simulation getSimulation(String name) {
+        // TODO implement when we have time
         return null;
     }
 }
