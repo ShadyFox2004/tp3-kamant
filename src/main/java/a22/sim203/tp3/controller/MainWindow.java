@@ -1,18 +1,28 @@
 package a22.sim203.tp3.controller;
 
 import a22.sim203.tp3.simulation.Simulation;
+import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 /**
- * Sample Skeleton for 'MainWindow.fxml' Controller Class
+ * Main window to control all the tabs
+ * @author Kamran Charles Nayebi
  */
 public class MainWindow {
     /**
-     * The current simulation
+     * Pointer to the SimulationEditor
      */
-    private Simulation simulation = new Simulation();
+    SimulationEditor editor;
+    /**
+     * Pointer to the Simulator
+     */
+    Simulator simulator;
+    /**
+     * Pointer to the View2D
+     */
+    View2D view2D;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -33,7 +43,7 @@ public class MainWindow {
      */
     @FXML
     void onLoad() {
-        simulation = SaveUtils.loadSimulation(new Stage());
+        editor.addSimulation(SaveUtils.loadSimulation(new Stage()));
     }
 
     /**
@@ -42,6 +52,36 @@ public class MainWindow {
      */
     @FXML
     void onSave() {
-        SaveUtils.saveSimulation(simulation, new Stage());
+        SaveUtils.saveSimulation(editor.getSimulation(), new Stage());
+    }
+
+    /**
+     * Pauses/Resumes the simulation and switches the text of the button to the other state
+     */
+    void onPauseResume(){
+
+    }
+
+    /**
+     * Resets the simulation
+     */
+    @FXML
+    void onReset(){
+
+    }
+
+    /**
+     * Starts the simulation
+     */
+    void onStart(){
+
+    }
+
+    /**
+     * Gets called when a new frame is generated
+     * @param state the new state
+     */
+    void update(State state){
+
     }
 }

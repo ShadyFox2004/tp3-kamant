@@ -41,7 +41,7 @@ public class Simulator {
      * Creates all the series at the start of the simulation
      * @param state the first state
      */
-    private void initialiseGraph(State state) {
+    private void initialise(State state) {
         if (variables.length == 0)
             throw new IllegalStateException("Tracked variables are not set. Use method setTackedVariables()");
         XYChart.Series<Number, Number> data;
@@ -57,9 +57,9 @@ public class Simulator {
      * Adds a point to the graph for all variables requested
      * @param state the state that contains the new information to add
      */
-    void updateGraph(State state) {
+    void update(State state) {
         if (simulationChart.getData().size() == 0)
-            initialiseGraph(state);
+            initialise(state);
         else
             for (int i = 0; i < variables.length; i++)
                 simulationChart.getData().get(i).getData().add(new XYChart.Data<>(state.getVariable("t").getValue(), state.getVariable(variables[i]).getValue()));
@@ -68,7 +68,7 @@ public class Simulator {
     /**
      * Clears the graph
      */
-    void clearGraph() {
+    void clear() {
         simulationChart.getData().clear();
     }
 
@@ -78,7 +78,7 @@ public class Simulator {
      */
     void setTrackedVariables(String... variables) {
         if (simulationChart.getData().size() != 0)
-            clearGraph();
+            clear();
         this.variables = variables;
     }
 
