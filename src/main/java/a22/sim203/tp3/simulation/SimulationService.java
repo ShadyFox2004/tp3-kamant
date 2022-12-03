@@ -68,7 +68,6 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
                 if (!isPaused()) {
                     a22.sim203.tp3.simulation.State calculatedState = simulation.simulateStep(simulation.getHistory().get(simulation.getHistory().size() - 1).getVariable("t").getValue() + (double) (System.currentTimeMillis() - absoluteStartTime) / 1000, (double) (System.currentTimeMillis() - absoluteStartTime) / 1000, simulation.getHistory().get(simulation.getHistory().size() - 1));
                     updateValue(calculatedState);
-                    simulation.addInHistory(calculatedState);
                 }
             }
             return null;
