@@ -1,5 +1,6 @@
 package a22.sim203.tp3.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -8,10 +9,13 @@ import a22.sim203.tp3.simulation.State;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 
 /**
  * Tab that displays a line chart of the requested variables
@@ -19,7 +23,17 @@ import javafx.scene.control.ListView;
  * Don't forget to set the graph title to the simulation name through setTitle(String)
  * @author Kamran Charles Nayebi
  */
-public class Simulator {
+public class Simulator extends HBox {
+    /**
+     * Creates a calculator object
+     */
+    public Simulator() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/Simulator.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+    }
+
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -89,7 +103,4 @@ public class Simulator {
     void setTitle(String title){
         simulationChart.setTitle(title);
     }
-
-
-
 }

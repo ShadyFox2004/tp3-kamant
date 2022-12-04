@@ -1,5 +1,6 @@
 package a22.sim203.tp3.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,14 +15,26 @@ import a22.sim203.tp3.simulation.Variable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 
 /**
  * Sample Skeleton for 'SimulationEditor.fxml' Controller Class
  */
-public class SimulationEditor {
+public class SimulationEditor extends HBox {
+    /**
+     * Creates a SimulationEditor object
+     */
+    public SimulationEditor() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/SimulationEditor.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+    }
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;

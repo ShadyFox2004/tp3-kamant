@@ -1,4 +1,5 @@
 package a22.sim203.tp3.controller;
+import a22.sim203.tp3.SimulationApp;
 import a22.sim203.tp3.exception.IncorrectSyntaxException;
 import a22.sim203.tp3.factory.ExpressionCellFactory;
 import a22.sim203.tp3.factory.FunctionCellFactory;
@@ -7,16 +8,22 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import org.mariuszgromada.math.mxparser.Expression;
 import org.mariuszgromada.math.mxparser.Function;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 import static a22.sim203.tp3.utils.DialogUtils.createAlert;
@@ -26,7 +33,16 @@ import static a22.sim203.tp3.utils.DialogUtils.createFunctionDialogue;
  * Calculator tab to (maybe) edit a specific simulation state (not required)
  * @author Antoine-Matis Boudreau
  */
-public class Calculator extends BorderPane {
+public class Calculator extends HBox {
+    /**
+     * Creates a calculator object
+     */
+    public Calculator() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/Calculator.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+    }
     public final Function[] DEFAULT_FUNCTIONS = {
             new Function("f(x)=x"),
             new Function("f(x)=sqrt(x)"),
