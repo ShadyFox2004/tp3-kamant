@@ -1,13 +1,18 @@
 package a22.sim203.tp3.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import a22.sim203.tp3.factory.SimulationCellFactory;
 import a22.sim203.tp3.simulation.Simulation;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 
 /**
  * Sample Skeleton for 'SimulationEditor.fxml' Controller Class
@@ -34,16 +39,24 @@ public class SimulationEditor {
     /**
      * Pointer to the history controller to request and set history
      */
-
-    /**
-     * Set the simulation list
-     * @param simulationList  simulation list
-     */
     private History history;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        simulationList.setItems(FXCollections.observableList(new ArrayList<>()));
+
+        Simulation newSimulation = new Simulation();
+        newSimulation.setName("2");
+
+        simulationList.getItems().add(newSimulation);
+
+        simulationList.getSelectionModel().select(newSimulation);
+
         simulationList.setCellFactory(new SimulationCellFactory());
+        simulationList.setOnMousePressed(event -> {
+            history.setHistory(getSimulation().getHistory());
+
+        });
 
         assert equationList != null : "fx:id=\"equationList\" was not injected: check your FXML file 'SimulationEditor.fxml'.";
         assert simulationList != null : "fx:id=\"simulationList\" was not injected: check your FXML file 'SimulationEditor.fxml'.";

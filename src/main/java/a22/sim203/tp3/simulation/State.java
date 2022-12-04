@@ -9,7 +9,7 @@ import java.util.*;
  * Represents a picture of a certain state which contains variables
  */
 public class State implements Serializable {
-    private Map<String, Variable> variableMap = new HashMap();
+    private Map<String, Variable> variableMap;
 
     public Variable getVariable(String nom) {
         return variableMap.get(nom);
@@ -44,8 +44,8 @@ public class State implements Serializable {
         variableMap.put(variable.getName(), variable);
     }
 
-    public double getValFor(Argument argCherche) {
-        return variableMap.get(argCherche.getArgumentName()).getValue();
+    public double getValFor(Argument argFind) {
+        return variableMap.get(argFind.getArgumentName()).getValue();
     }
 
     @Override
@@ -53,10 +53,6 @@ public class State implements Serializable {
         return "State{" +
                 "variableList=" + variableMap +
                 '}';
-    }
-
-    public void setVariableList(List<Variable> variableList) {
-        this.variableMap = variableMap;
     }
 
     @Override
