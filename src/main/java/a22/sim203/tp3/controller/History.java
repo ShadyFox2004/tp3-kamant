@@ -1,8 +1,9 @@
 package a22.sim203.tp3.controller;
 
 import a22.sim203.tp3.simulation.State;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,37 +13,45 @@ import java.util.List;
  */
 public class History {
 
-    List<State> history = new ArrayList<>(1000);
+    ListView<State> history;
 
     /**
-     * Updates the history with a new state
-     * @param state new state of the simulation
+     * Set the history with the new state
      */
-    public void update(State state){
-
+    protected void setHistory(List<State> newHistory) {
+        if (newHistory != null) {
+            history.setItems(FXCollections.observableList(newHistory));
+        }
     }
 
     /**
-     * Returns the states that are selected in the ListView
-     * @return the states that are selected in the ListView
+     * Updates the history with a new state
+     * @param newState new state of the simulation
      */
-    public List<State> getSelectedStates() {
-        return null;
+    protected void update(State newState) {
+        history.getItems().add(newState);
+    }
+
+    /**
+     * Returns the state that is selected in the ListView
+     * @return the state that is selected in the ListView
+     */
+    protected State getSelectedState() {
+        return history.getSelectionModel().getSelectedItem();
     }
 
     /**
      * Sets the state of the selected variables in the order of the array
      * If null is passed for a selected state, it will remain unchanged
      */
-    public void setSelectedStates(List<State> states){
-
+    protected void setSelectedState(State state){
+        history.getSelectionModel().select(state);
     }
 
     /**
      * Returns the history of the simulation
      */
-    public List<State> getHistory(){
+    protected javafx.scene.control.ListView<State> getHistory(){
         return history;
     }
-
 }
