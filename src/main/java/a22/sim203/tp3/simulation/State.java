@@ -57,6 +57,7 @@ public class State implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+        // TODO fix this because its ugly
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         State state = (State) o;
