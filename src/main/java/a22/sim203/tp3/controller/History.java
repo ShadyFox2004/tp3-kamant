@@ -17,10 +17,13 @@ public class History {
 
     /**
      * Set the history with the new state
+     * and select the last
      */
     protected void setHistory(List<State> newHistory) {
         if (newHistory != null) {
+
             history.setItems(FXCollections.observableList(newHistory));
+            history.getSelectionModel().select(history.getItems().size()-1);
         }
     }
 
