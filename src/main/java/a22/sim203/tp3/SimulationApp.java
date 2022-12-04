@@ -21,14 +21,11 @@ import java.util.Map;
  */
 public class SimulationApp extends Application {
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("fxml/MainWindow.fxml"));
         Parent root = fxmlLoader.load();
-
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

@@ -22,6 +22,10 @@ import java.util.*;
 import static a22.sim203.tp3.utils.DialogUtils.createAlert;
 import static a22.sim203.tp3.utils.DialogUtils.createFunctionDialogue;
 
+/**
+ * Calculator tab to (maybe) edit a specific simulation state (not required)
+ * @author Antoine-Matis Boudreau
+ */
 public class Calculator extends BorderPane {
     public final Function[] DEFAULT_FUNCTIONS = {
             new Function("f(x)=x"),
@@ -41,9 +45,6 @@ public class Calculator extends BorderPane {
     private TextField display;
 
     @FXML
-    private ListView<Expression> history;
-
-    @FXML
     private ListView<Function> functions;
 
     @FXML
@@ -56,6 +57,11 @@ public class Calculator extends BorderPane {
      * the memory itself
      */
     private double memory = 0;
+
+    /**
+     * Pointer to the history controller to request and set history
+     */
+    private History history;
 
     /**
      * Event to trigger for animation upon button
@@ -81,7 +87,6 @@ public class Calculator extends BorderPane {
         assert functions != null : "fx:id=\"functionView\" was not injected: check your FXML file 'Calculator.fxml'.";
         assert history != null : "fx:id=\"history\" was not injected: check your FXML file 'Calculator.fxml'.";
 
-        doConfigureHistory();
         doConfigureFunctions();
         doBindKeyToButton();
         gridPane.lookupAll(".button").forEach(button -> {
@@ -143,11 +148,8 @@ public class Calculator extends BorderPane {
     private void parseExpressionInDisplay(ActionEvent event) {
         Expression expression = assembleExpressionFromState();
 
-        if (expression.checkSyntax()) {
-            addExpressionToHistory(expression);
-        } else {
+        if (!expression.checkSyntax())
             createAlert(new IncorrectSyntaxException(expression.getDescription()));
-        }
     }
 
     /**
@@ -218,15 +220,6 @@ public class Calculator extends BorderPane {
         return expression;
     }
 
-    /**
-     * Get the history, and add an expression.
-     *
-     * @param expression the expression to add
-     * @author Antoine-Matis Boudreau
-     */
-    private void addExpressionToHistory(Expression expression) {
-        history.getItems().add(expression); // The result of the expression
-    }
 
     /**
      * Push a button upon a key pressed if the key is the button
@@ -240,26 +233,6 @@ public class Calculator extends BorderPane {
     }
 
     // MAKERS
-
-    /**
-     * Configure the history and set the menus and behaviours
-     *
-     * @author Antoine-Matis Boudreau
-     */
-    private void doConfigureHistory() {
-        MenuItem removeItem = new MenuItem("remove");
-        MenuItem restoreItem = new MenuItem("restore");
-
-        removeItem.setOnAction(event ->
-                history.getItems().remove(history.getSelectionModel().getSelectedItem()));
-
-        restoreItem.setOnAction(event ->
-                display.setText(history.getSelectionModel().getSelectedItem().getDescription()));
-
-        history.setItems(FXCollections.observableList(new ArrayList<>())); //Initialize the history
-        history.setContextMenu(new ContextMenu(removeItem, restoreItem));
-        history.setCellFactory(new ExpressionCellFactory());
-    }
 
     /**
      * Configure the history and set the menus and behaviours

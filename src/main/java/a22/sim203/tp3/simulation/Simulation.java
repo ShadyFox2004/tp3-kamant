@@ -105,6 +105,7 @@ public class Simulation implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+        if (o==null) return false;
         return Objects.equals(name, ((Simulation)o).name) && Objects.equals(history, ((Simulation)o).history);
     }
 
