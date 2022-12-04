@@ -29,13 +29,13 @@ public class MainWindow {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException {
+        editor = new SimulationEditor();
+        simulator = new Simulator();
         calculator = new Calculator();
-        //editor = new SimulationEditor();
-        //simulator = new Simulator();
 
+        tabs.getTabs().add(new Tab("editor" ,editor.getRoot()));
+        tabs.getTabs().add(new Tab("simulator", simulator.getRoot()));
         tabs.getTabs().add(new Tab("calculator" ,calculator.getRoot()));
-        //tabs.getTabs().add(new Tab("editor" ,editor.getRoot()));
-        //tabs.getTabs().add(new Tab("simulator", simulator.getRoot()));
     }
 
     /**
