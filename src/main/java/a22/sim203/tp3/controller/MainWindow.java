@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,6 +50,7 @@ public class MainWindow {
         updatePopItems();
     }
 
+
     /**
      * Pop out the tabs into stages
      * // TODO make this cleaner
@@ -60,10 +58,10 @@ public class MainWindow {
     @FXML
     private void popout() {
         popoutButton.setDisable(true);
-        tabs.getTabs().forEach(tab -> {
+        while (tabs.getTabs().iterator().hasNext()) {
+            Tab tab = tabs.getTabs().iterator().next();
             tabToStage(tab);
-        });
-        tabs.getTabs().clear();
+        }
         updatePopItems();
     }
 
@@ -73,9 +71,10 @@ public class MainWindow {
     @FXML
     private void popin() {
         popinButton.setDisable(true);
-        stages.forEach(stage -> {
+        while (stages.iterator().hasNext()) {
+            Stage stage = stages.iterator().next();
             stageToTab(stage);
-        });
+        }
         updatePopItems();
     }
 
@@ -92,8 +91,10 @@ public class MainWindow {
         stages.add(stage);
         stage.setOnCloseRequest(event -> {
             stageToTab(stage);
+            stages.remove(stage);
         });
-        popoutButton.setDisable(tabs.getTabs().size() == 0); // Nice touch for the gui
+        tabs.getTabs().remove(tab);
+        updatePopItems();
         stage.show();
         return stage;
     }
@@ -110,7 +111,7 @@ public class MainWindow {
         tab = new Tab(stage.getTitle() ,root);
         tabs.getTabs().add(tab);
         stage.close();
-         // Nice touch for the gui
+        stages.remove(stage);
         return tab;
     }
 
