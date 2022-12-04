@@ -15,6 +15,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 
 /**
  * Tab that displays a line chart of the requested variables
@@ -22,20 +23,15 @@ import javafx.scene.control.ListView;
  * Don't forget to set the graph title to the simulation name through setTitle(String)
  * @author Kamran Charles Nayebi
  */
-public class Simulator {
-
-    /**
-     * the root of the current controller
-     */
-    private Parent root;
-
+public class Simulator extends HBox {
     /**
      * Creates a calculator object
      */
     public Simulator() throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/Simulator.fxml"));
         loader.setController(this);
-        root = loader.load();
+        loader.setRoot(this);
+        loader.load();
     }
 
 
@@ -106,10 +102,5 @@ public class Simulator {
      */
     void setTitle(String title){
         simulationChart.setTitle(title);
-    }
-
-
-    public Parent getRoot() {
-        return root;
     }
 }

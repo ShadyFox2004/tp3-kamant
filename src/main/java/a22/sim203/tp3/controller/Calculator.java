@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import org.mariuszgromada.math.mxparser.Expression;
 import org.mariuszgromada.math.mxparser.Function;
@@ -32,20 +33,15 @@ import static a22.sim203.tp3.utils.DialogUtils.createFunctionDialogue;
  * Calculator tab to (maybe) edit a specific simulation state (not required)
  * @author Antoine-Matis Boudreau
  */
-public class Calculator {
-    /**
-     * Used to interact directly with the controller
-     */
-    private Parent root;
-
-
+public class Calculator extends HBox {
     /**
      * Creates a calculator object
      */
     public Calculator() throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/Calculator.fxml"));
         loader.setController(this);
-        root = loader.load();
+        loader.setRoot(this);
+        loader.load();
     }
     public final Function[] DEFAULT_FUNCTIONS = {
             new Function("f(x)=x"),
@@ -295,9 +291,5 @@ public class Calculator {
                 .map(b -> (Button) b)
                 .filter(p -> KEY_TO_BIND.contains(p.getText()))
                 .forEach(button -> keyMap.put(button.getText(), button));
-    }
-
-    public Parent getRoot() {
-        return root;
     }
 }

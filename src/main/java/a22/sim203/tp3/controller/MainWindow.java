@@ -4,11 +4,16 @@ import a22.sim203.tp3.simulation.Simulation;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main window to control all the tabs
@@ -24,6 +29,8 @@ public class MainWindow {
     private Calculator calculator;
     private History history;
 
+    private List<Stage> stages = new ArrayList<>();
+
     @FXML
     private TabPane tabs;
 
@@ -33,9 +40,34 @@ public class MainWindow {
         simulator = new Simulator();
         calculator = new Calculator();
 
-        tabs.getTabs().add(new Tab("editor" ,editor.getRoot()));
-        tabs.getTabs().add(new Tab("simulator", simulator.getRoot()));
-        tabs.getTabs().add(new Tab("calculator" ,calculator.getRoot()));
+        tabs.getTabs().add(new Tab("editor" ,editor));
+        tabs.getTabs().add(new Tab("simulator", simulator));
+        tabs.getTabs().add(new Tab("calculator" ,calculator));
+    }
+    /**
+     * Pop out the tabs into windows
+     * // TODO make this cleaner
+     */
+    @FXML
+    private void popout() {
+        tabs.getTabs().forEach(tab -> {
+            Node content = tab.getContent();
+            tab.setContent(null); // Cannot have two view;
+            Stage stage = createStageWithParent((Parent) content);
+            stages.add(stage);
+            stage.show();
+        });
+        tabs.getTabs().clear();
+    }
+
+    /**
+     * Create a stage with a root
+     */
+    private Stage createStageWithParent(Parent parent) {
+        if (parent == null) return null; // TODO Clean this atrocity
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        return stage;
     }
 
     /**

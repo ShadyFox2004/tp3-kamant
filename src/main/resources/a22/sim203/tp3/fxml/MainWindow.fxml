@@ -33,6 +33,11 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#popout" text="pop-out" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>
