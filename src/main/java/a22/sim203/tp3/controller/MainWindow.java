@@ -4,29 +4,38 @@ import a22.sim203.tp3.simulation.Simulation;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * Main window to control all the tabs
- * @author Kamran Charles Nayebi
+ * @author Kamran Charles Nayebi + Antoine-Matis Boudreau
  */
 public class MainWindow {
     /**
      * Pointer to the SimulationEditor
      */
-    SimulationEditor editor;
-    /**
-     * Pointer to the Simulator
-     */
-    Simulator simulator;
-    /**
-     * Pointer to the View2D
-     */
-    View2D view2D;
+    private SimulationEditor editor;
+    private Simulator simulator;
+    private View2D view2D;
+    private Calculator calculator;
+    private History history;
+
+    @FXML
+    private TabPane tabs;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    void initialize() throws IOException {
+        calculator = new Calculator();
+        //editor = new SimulationEditor();
+        //simulator = new Simulator();
 
+        tabs.getTabs().add(new Tab("calculator" ,calculator.getRoot()));
+        //tabs.getTabs().add(new Tab("editor" ,editor.getRoot()));
+        //tabs.getTabs().add(new Tab("simulator", simulator.getRoot()));
     }
 
     /**
@@ -82,6 +91,6 @@ public class MainWindow {
      * @param state the new state
      */
     void update(State state){
-        // TODO implement update
+        history.update(state);
     }
 }

@@ -1,5 +1,6 @@
 package a22.sim203.tp3.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -8,6 +9,8 @@ import a22.sim203.tp3.simulation.State;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -20,6 +23,21 @@ import javafx.scene.control.ListView;
  * @author Kamran Charles Nayebi
  */
 public class Simulator {
+
+    /**
+     * the root of the current controller
+     */
+    private Parent root;
+
+    /**
+     * Creates a calculator object
+     */
+    public Simulator() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/Simulator.fxml"));
+        loader.setController(this);
+        root = loader.load();
+    }
+
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -91,5 +109,7 @@ public class Simulator {
     }
 
 
-
+    public Parent getRoot() {
+        return root;
+    }
 }
