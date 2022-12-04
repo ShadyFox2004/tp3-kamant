@@ -18,6 +18,7 @@
             <ListView fx:id="simulationList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="451.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
+      <ListView fx:id="stateList" prefHeight="200.0" prefWidth="200.0" />
       <ListView fx:id="variableList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
       <ListView fx:id="equationList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
    </children>
