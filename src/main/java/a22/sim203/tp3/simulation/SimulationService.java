@@ -66,8 +66,14 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
                 setAbsoluteStartTime(System.currentTimeMillis());
                 Thread.sleep((long) (targetDeltaTime * 1000));
                 if (!isPaused()) {
-                    a22.sim203.tp3.simulation.State calculatedState = simulation.simulateStep(simulation.getHistory().get(simulation.getHistory().size() - 1).getVariable("t").getValue() + (double) (System.currentTimeMillis() - absoluteStartTime) / 1000, (double) (System.currentTimeMillis() - absoluteStartTime) / 1000, simulation.getHistory().get(simulation.getHistory().size() - 1));
-                    updateValue(calculatedState);
+                    simulation.getHistory().set(simulation.getHistory().size() - 1, simulation.simulateStep(
+                            simulation.getHistory().get(simulation.getHistory().size() - 1).getVariable("t").getValue() + (double) (System.currentTimeMillis() - absoluteStartTime) / 1000,
+                            (double) (System.currentTimeMillis() - absoluteStartTime) / 1000,
+                            simulation.getHistory().get(simulation.getHistory().size() - 1)));
+                    if (simulation.getHistory(simulation.getHistory().size() - 1).getVariable("STOP").getValue() == 1.0)
+                        setPaused(true);
+                    else
+                        updateValue(simulation.getHistory(simulation.getHistory().size() - 1));
                 }
             }
             return null;
@@ -99,10 +105,6 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
         if (absoluteStartTime < 0)
             throw new DateTimeException("Cannot have negative time");
         this.absoluteStartTime = absoluteStartTime;
-    }
-
-    public double getTargetDeltaTime() {
-        return targetDeltaTime;
     }
 
     public void setTargetDeltaTime(double targetDeltaTime) {
