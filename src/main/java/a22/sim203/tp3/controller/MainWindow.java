@@ -49,12 +49,14 @@ public class MainWindow {
         editor = new SimulationEditor();
         simulator = new Simulator();
         calculator = new Calculator();
+        view2D = new View2D();
 
         controlMenu = new ControlMenu();
 
         tabs.getTabs().add(new Tab("editor" ,editor));
         tabs.getTabs().add(new Tab("simulator", simulator));
         tabs.getTabs().add(new Tab("calculator" ,calculator));
+        tabs.getTabs().add(new Tab("2D view" ,view2D));
 
         sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
 
