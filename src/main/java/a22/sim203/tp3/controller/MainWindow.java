@@ -27,6 +27,8 @@ public class MainWindow {
     private Calculator calculator;
     private History history;
 
+    private ControlMenu controlMenu;
+
     private List<Stage> stages = new ArrayList<>();
     @FXML
     private MenuItem popinButton;
@@ -36,6 +38,11 @@ public class MainWindow {
     @FXML
     private TabPane tabs;
 
+    @FXML
+    private SplitPane slidePane;
+
+    @FXML
+    private TabPane sideTabs;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException {
@@ -43,9 +50,20 @@ public class MainWindow {
         simulator = new Simulator();
         calculator = new Calculator();
 
+        controlMenu = new ControlMenu();
+
         tabs.getTabs().add(new Tab("editor" ,editor));
         tabs.getTabs().add(new Tab("simulator", simulator));
         tabs.getTabs().add(new Tab("calculator" ,calculator));
+
+        sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
+
+        tabs.setOnDragExited(event -> {
+            Tab tab = (Tab) event.getSource();
+            tabToStage(tab);
+        });
+
+        tabs.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
 
         updatePopItems();
     }
@@ -92,6 +110,7 @@ public class MainWindow {
         stage.setOnCloseRequest(event -> {
             stageToTab(stage);
             stages.remove(stage);
+            updatePopItems();
         });
         tabs.getTabs().remove(tab);
         updatePopItems();
@@ -121,6 +140,11 @@ public class MainWindow {
     public void updatePopItems() {
         popoutButton.setDisable(tabs.getTabs().size() == 0); // Nice touch for the gui
         popinButton.setDisable(stages.size() == 0);
+        if(tabs.getTabs().size() == 0) {
+            slidePane.setDividerPositions(0);
+        } else {
+            slidePane.setDividerPositions(0.7);
+        }
     }
 
     /**

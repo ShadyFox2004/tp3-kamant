@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.AmbientLight?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.tp3.controller.MainWindow">
-   <center>
-      <TabPane fx:id="tabs" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-      </TabPane>
-   </center>
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="412.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.tp3.controller.MainWindow">
+   <children>
+      <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Simulation">
             <items>
@@ -42,24 +36,12 @@
             </Menu>
         </menus>
       </MenuBar>
-   </top>
-   <left>
-      <AmbientLight color="CHARTREUSE" lightOn="true" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <TabPane prefHeight="200.0" prefWidth="200.0" side="RIGHT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="Simulation Controls">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
+      <SplitPane fx:id="slidePane" dividerPositions="0.7334494773519163" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="385.0" prefWidth="248.0" VBox.vgrow="ALWAYS">
+         <items>
+            <TabPane fx:id="tabs" prefHeight="200.0" prefWidth="200.0">
       </TabPane>
-   </right>
-</BorderPane>
+            <TabPane fx:id="sideTabs" prefHeight="383.0" prefWidth="149.0" side="RIGHT" tabClosingPolicy="UNAVAILABLE" />
+         </items>
+      </SplitPane>
+   </children>
+</VBox>
