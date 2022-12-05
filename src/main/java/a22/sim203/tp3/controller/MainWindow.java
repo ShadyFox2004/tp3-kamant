@@ -1,14 +1,18 @@
 package a22.sim203.tp3.controller;
 
 import a22.sim203.tp3.simulation.Simulation;
+import a22.sim203.tp3.simulation.SimulationService;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
+import javafx.concurrent.Service;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,8 @@ public class MainWindow {
     private View2D view2D;
     private Calculator calculator;
     private History history;
+    private SimulationService service;
+    private ControlMenu controlMenu;
 
     private List<Stage> stages = new ArrayList<>();
     @FXML
@@ -36,6 +42,11 @@ public class MainWindow {
     @FXML
     private TabPane tabs;
 
+    @FXML
+    private SplitPane slidePane;
+
+    @FXML
+    private TabPane sideTabs;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException {
@@ -43,9 +54,21 @@ public class MainWindow {
         simulator = new Simulator();
         calculator = new Calculator();
 
+        controlMenu = new ControlMenu();
+        controlMenu.setWindow(this);
+
         tabs.getTabs().add(new Tab("editor" ,editor));
         tabs.getTabs().add(new Tab("simulator", simulator));
         tabs.getTabs().add(new Tab("calculator" ,calculator));
+
+        sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
+
+        tabs.setOnDragExited(event -> {
+            Tab tab = (Tab) event.getSource();
+            tabToStage(tab);
+        });
+
+        tabs.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
 
         updatePopItems();
     }
@@ -92,6 +115,7 @@ public class MainWindow {
         stage.setOnCloseRequest(event -> {
             stageToTab(stage);
             stages.remove(stage);
+            updatePopItems();
         });
         tabs.getTabs().remove(tab);
         updatePopItems();
@@ -121,6 +145,11 @@ public class MainWindow {
     public void updatePopItems() {
         popoutButton.setDisable(tabs.getTabs().size() == 0); // Nice touch for the gui
         popinButton.setDisable(stages.size() == 0);
+        if(tabs.getTabs().size() == 0) {
+            slidePane.setDividerPositions(0);
+        } else {
+            slidePane.setDividerPositions(0.7);
+        }
     }
 
     /**
@@ -152,23 +181,30 @@ public class MainWindow {
     /**
      * Pauses/Resumes the simulation and switches the text of the button to the other state
      */
-    void onPauseResume(){
-
+    void onPauseResume(ActionEvent e){
+        Button button = ((Button)e.getSource());
+        if (button.getText().equals("pause")){
+            button.setText("resume");
+            service.setPaused(true);
+        } else {
+            button.setText("pause");
+            service.setPaused(false);
+        }
     }
 
     /**
-     * Resets the simulation
+     * Starts/Resets the simulation
      */
-    @FXML
-    void onReset(){
-
-    }
-
-    /**
-     * Starts the simulation
-     */
-    void onStart(){
-        // TODO implement onStart
+    void onStartReset(ActionEvent e){
+        Button button = ((Button)e.getSource());
+        if (button.getText().equals("Start")){
+            button.setText("Reset");
+            service = new SimulationService(editor.getSimulation(), Double.parseDouble(controlMenu.simulationTime.getText()));
+        } else {
+            button.setText("Start");
+            service.cancel();
+            simulator.clear();
+        }
     }
 
     /**
@@ -176,6 +212,23 @@ public class MainWindow {
      * @param state the new state
      */
     void update(State state){
+        if (shouldQuery(state)){
+        simulator.update(state);
         history.update(state);
+        }
+    }
+
+    /**
+     * Calculates whether the chosen frame should be shown
+     */
+    private boolean shouldQuery(State state){
+        double queryTime = Double.parseDouble(controlMenu.queryTime.getText());
+        //Find out the exponent of the query time
+        double exponent = Math.floor(Math.log10(Math.abs(queryTime)));
+        //Round the simulated time to the precision of the query time
+        double simulatedTime = Math.round(state.getVariable("t").getValue()*Math.pow(10, -exponent))/Math.pow(10, -exponent);
+        //Find what query time the simulated time is closest to and smaller or equal than
+        double closestQueryTime = queryTime * (int)simulatedTime/queryTime != simulatedTime ? queryTime * (int)simulatedTime/queryTime + queryTime : simulatedTime;
+        return simulatedTime + service.getTargetDeltaTime() > closestQueryTime;
     }
 }
