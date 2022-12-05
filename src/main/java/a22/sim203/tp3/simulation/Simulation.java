@@ -17,7 +17,6 @@ public class Simulation implements Serializable {
     public Simulation(String name, List<State> history) {
         this.name = name;
         this.history = history;
-        setupInitialState();
     }
 
     public Simulation(){
