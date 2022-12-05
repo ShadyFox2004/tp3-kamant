@@ -22,6 +22,13 @@ public class View2D extends HBox{
     @FXML
     private Circle ball;
 
+    public View2D() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/View2D.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+    }
+
     /**
      * Changes the position of the circle according to the state
      * @param state the state that contains the new information

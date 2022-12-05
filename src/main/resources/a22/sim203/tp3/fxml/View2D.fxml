@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Circle?>
 
 
-<HBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a22.sim203.tp3.controller.View2D">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="122.0" type="HBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -13,4 +13,4 @@
          </children>
       </AnchorPane>
    </children>
-</HBox>
+</fx:root>
