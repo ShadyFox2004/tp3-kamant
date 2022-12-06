@@ -59,6 +59,14 @@ public class SimulationEditor extends HBox {
      */
     //private History history;
 
+    /**
+     * Pointer to the simulation graph display
+     */
+    private Simulator simulator;
+    /**
+     * Pointer to the simulation 2d display
+     */
+    private View2D view2D;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -101,7 +109,17 @@ public class SimulationEditor extends HBox {
         variableList.setOnMousePressed(event -> {
             List<Equation> equations = variableList.getSelectionModel().getSelectedItem().getEquationsList();
             equationList.setItems(FXCollections.observableList(equations));
+            simulator.setTrackedVariables(getSelectedVariables());
+            view2D.setTrackedVariables(getSelectedVariables());
         });
+    }
+
+    public void setSimulator(Simulator simulator) {
+        this.simulator = simulator;
+    }
+
+    public void setView2D(View2D view2D) {
+        this.view2D = view2D;
     }
 
     /**
@@ -126,5 +144,18 @@ public class SimulationEditor extends HBox {
     public Simulation getSimulation(String name) {
         // TODO implement when we have time
         return null;
+    }
+
+    /**
+     * Returns an array of the selected variables
+     * @return an array of the selected variables
+     */
+    public String[] getSelectedVariables(){
+        Object[] rawVariables = variableList.getSelectionModel().getSelectedItems().toArray();
+        String[] variables = new String[rawVariables.length];
+        for (int i = 0; i < rawVariables.length; i++) {
+            variables[i] = ((Variable)rawVariables[i]).getName();
+        }
+        return variables;
     }
 }

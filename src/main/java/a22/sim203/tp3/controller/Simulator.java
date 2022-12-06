@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import a22.sim203.tp3.simulation.Simulation;
 import a22.sim203.tp3.simulation.State;
+import a22.sim203.tp3.simulation.Variable;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -16,20 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Controller class for the side menu
  */
-public class ControlMenu extends VBox implements Initializable {
-
-    @FXML
-    private ToggleButton pauseResumeButton;
-
-    @FXML
-    private Button resetButton;
-
-    @FXML
-    private Button startButton;
-
-    @FXML
-    private Button stopButton;
-
+public class ControlMenu extends VBox {
     @FXML // fx:id="simulationTime"
     TextField simulationTime;
 
@@ -64,43 +51,14 @@ public class ControlMenu extends VBox implements Initializable {
     }
 
     /**
-     * Get triggered when 'reset' button is pressed
-     * Resets the simulation
+     * Get triggered when 'start/reset' button is pressed
+     * Starts/Resets the simulation
      */
     @FXML
-    void onReset(ActionEvent event){
+    void onStartReset(ActionEvent event) {
         window.onStartReset(event);
     }
 
-    /**
-     * Get triggered when 'start' button is pressed
-     * Starts the simulation
-     */
-    @FXML
-    void onStart(ActionEvent event) {
-        window.onStartReset(event);
-    }
-
-    /**
-     * Get triggered when 'stop' button is pressed
-     * Stop the simulation
-     */
-    @FXML
-    void onStop(ActionEvent event){
-        window.onPauseResume(event);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-//        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/ControlMenu.fxml"));
-//        loader.setController(this);
-//        loader.setRoot(this);
-//        try {
-//            loader.load();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-    }
 
     public void setWindow(MainWindow window) {
         this.window = window;

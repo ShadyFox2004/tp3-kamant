@@ -4,20 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="122.0" type="VBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="122.0" type="VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="startButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onStart" text="Start" />
-      <Button fx:id="stopButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onStop" text="Stop" />
-      <ToggleButton fx:id="pauseResumeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPauseResume" text="Pause/Resume" />
+      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onStartReset" text="Start" />
+      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPauseResume" text="Pause" />
       <Separator prefWidth="200.0" />
-      <Button fx:id="resetButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onReset" text="Reset" />
       <Separator prefWidth="200.0" />
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Simulation Time" VBox.vgrow="ALWAYS" />
-      <TextField fx:id="simulationTime" />
+      <TextField fx:id="simulationTime" text="0.1" />
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Query Time" />
-      <TextField fx:id="queryTime" />
+      <TextField fx:id="queryTime" text="0.1" />
    </children>
 </fx:root>

@@ -29,6 +29,9 @@ public class State implements Serializable {
 
     public State(Map<String, Variable> variableMap) {
         this.variableMap = variableMap;
+        if (this.variableMap.get("t") == null) addVariable(new Variable("t", 0));
+        if (this.variableMap.get("dt") == null) addVariable(new Variable("dt", 0));
+        if (this.variableMap.get("STOP") == null) addVariable(new Variable("STOP", 0));
     }
 
 

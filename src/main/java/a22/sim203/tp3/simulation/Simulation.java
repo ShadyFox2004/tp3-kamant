@@ -17,7 +17,6 @@ public class Simulation implements Serializable {
     public Simulation(String name, List<State> history) {
         this.name = name;
         this.history = history;
-        setupInitialState();
     }
 
     public Simulation(){
@@ -88,11 +87,6 @@ public class Simulation implements Serializable {
                 "name='" + name + '\'' +
                 ", history=" + history +
                 '}';
-    }
-    private void setupInitialState() {
-        if (history.get(0).getVariable("t") == null) history.get(0).addVariable(new Variable("t", 0));
-        if (history.get(0).getVariable("dt") == null) history.get(0).addVariable(new Variable("dt", 0));
-        if (history.get(0).getVariable("STOP") == null) history.get(0).addVariable(new Variable("STOP", 0));
     }
 
     public List<State> getHistory() {
