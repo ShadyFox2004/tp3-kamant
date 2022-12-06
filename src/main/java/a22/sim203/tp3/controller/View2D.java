@@ -1,7 +1,6 @@
 package a22.sim203.tp3.controller;
 
 import a22.sim203.tp3.simulation.State;
-import a22.sim203.tp3.simulation.Variable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
