@@ -1,18 +1,14 @@
 package a22.sim203.tp3.controller;
 
 import a22.sim203.tp3.simulation.Simulation;
-import a22.sim203.tp3.simulation.SimulationService;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
-import javafx.concurrent.Service;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +26,7 @@ public class MainWindow {
     private View2D view2D;
     private Calculator calculator;
     private History history;
-    private SimulationService service;
+
     private ControlMenu controlMenu;
 
     private List<Stage> stages = new ArrayList<>();
@@ -53,13 +49,14 @@ public class MainWindow {
         editor = new SimulationEditor();
         simulator = new Simulator();
         calculator = new Calculator();
+        view2D = new View2D();
 
         controlMenu = new ControlMenu();
-        controlMenu.setWindow(this);
 
         tabs.getTabs().add(new Tab("editor" ,editor));
         tabs.getTabs().add(new Tab("simulator", simulator));
         tabs.getTabs().add(new Tab("calculator" ,calculator));
+        tabs.getTabs().add(new Tab("2D view" ,view2D));
 
         sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
 
@@ -181,30 +178,23 @@ public class MainWindow {
     /**
      * Pauses/Resumes the simulation and switches the text of the button to the other state
      */
-    void onPauseResume(ActionEvent e){
-        Button button = ((Button)e.getSource());
-        if (button.getText().equals("pause")){
-            button.setText("resume");
-            service.setPaused(true);
-        } else {
-            button.setText("pause");
-            service.setPaused(false);
-        }
+    void onPauseResume(){
+
     }
 
     /**
-     * Starts/Resets the simulation
+     * Resets the simulation
      */
-    void onStartReset(ActionEvent e){
-        Button button = ((Button)e.getSource());
-        if (button.getText().equals("Start")){
-            button.setText("Reset");
-            service = new SimulationService(editor.getSimulation(), Double.parseDouble(controlMenu.simulationTime.getText()));
-        } else {
-            button.setText("Start");
-            service.cancel();
-            simulator.clear();
-        }
+    @FXML
+    void onReset(){
+
+    }
+
+    /**
+     * Starts the simulation
+     */
+    void onStart(){
+        // TODO implement onStart
     }
 
     /**
@@ -212,23 +202,6 @@ public class MainWindow {
      * @param state the new state
      */
     void update(State state){
-        if (shouldQuery(state)){
-        simulator.update(state);
         history.update(state);
-        }
-    }
-
-    /**
-     * Calculates whether the chosen frame should be shown
-     */
-    private boolean shouldQuery(State state){
-        double queryTime = Double.parseDouble(controlMenu.queryTime.getText());
-        //Find out the exponent of the query time
-        double exponent = Math.floor(Math.log10(Math.abs(queryTime)));
-        //Round the simulated time to the precision of the query time
-        double simulatedTime = Math.round(state.getVariable("t").getValue()*Math.pow(10, -exponent))/Math.pow(10, -exponent);
-        //Find what query time the simulated time is closest to and smaller or equal than
-        double closestQueryTime = queryTime * (int)simulatedTime/queryTime != simulatedTime ? queryTime * (int)simulatedTime/queryTime + queryTime : simulatedTime;
-        return simulatedTime + service.getTargetDeltaTime() > closestQueryTime;
     }
 }
