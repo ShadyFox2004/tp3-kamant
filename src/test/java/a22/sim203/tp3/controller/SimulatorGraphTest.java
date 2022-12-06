@@ -55,18 +55,18 @@ public class SimulatorGraphTest extends Application {
         variableAvecEquations.addEquation(new Equation("initial pos of the projectile", "f(x,a,t,v)=x+a/2*t^2+v*2"));
         variables.put("x", variableAvecEquations);
 
-        simulator.updateGraph(new State(variables));
+        simulator.update(new State(variables));
 
         variables.get("a").setValue(2.5);
         variables.get("b").setValue(7.5);
         variables.get("t").setValue(4);
 
-        simulator.updateGraph(new State(variables));
+        simulator.update(new State(variables));
 
         variables.get("a").setValue(1.25);
         variables.get("t").setValue(5);
 
-        simulator.updateGraph(new State(variables));
+        simulator.update(new State(variables));
     }
 
     void testInitialiseGraph(Simulator simulator) {
@@ -83,6 +83,6 @@ public class SimulatorGraphTest extends Application {
     }
 
     void testClearGraph(Simulator simulator) {
-        simulator.clearGraph();
+        simulator.clear();
     }
 }

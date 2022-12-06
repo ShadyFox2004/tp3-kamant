@@ -1,31 +1,22 @@
 package a22.sim203.tp3.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controller class for the side menu
  */
 public class ControlMenu extends VBox {
-
-    @FXML
-    private ToggleButton pauseResumeButton;
-
-    @FXML
-    private Button resetButton;
-
-    @FXML
-    private Button startButton;
-
-    @FXML
-    private Button stopButton;
-
     @FXML // fx:id="simulationTime"
     TextField simulationTime;
 
@@ -55,34 +46,22 @@ public class ControlMenu extends VBox {
      * Pauses/Resumes the simulation and switches the text of the button to the other state
      */
     @FXML
-    void onPauseResume(){
-        // Calls the appropriate method in MainWindow
+    void onPauseResume(ActionEvent event){
+        window.onPauseResume(event);
     }
 
     /**
-     * Get triggered when 'reset' button is pressed
-     * Resets the simulation
+     * Get triggered when 'start/reset' button is pressed
+     * Starts/Resets the simulation
      */
     @FXML
-    void onReset(){
-        // Calls the appropriate method in MainWindow
+    void onStartReset(ActionEvent event) {
+        window.onStartReset(event);
     }
 
-    /**
-     * Get triggered when 'start' button is pressed
-     * Starts the simulation
-     */
-    @FXML
-    void onStart(){
-        // Calls the appropriate method in MainWindow
+
+    public void setWindow(MainWindow window) {
+        this.window = window;
     }
 
-    /**
-     * Get triggered when 'stop' button is pressed
-     * Stop the simulation
-     */
-    @FXML
-    void onStop(){
-
-    }
 }

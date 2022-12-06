@@ -88,11 +88,6 @@ public class Simulation implements Serializable {
                 ", history=" + history +
                 '}';
     }
-    private void setupInitialState() {
-        if (history.get(0).getVariable("t") == null) history.get(0).addVariable(new Variable("t", 0));
-        if (history.get(0).getVariable("dt") == null) history.get(0).addVariable(new Variable("dt", 0));
-        if (history.get(0).getVariable("STOP") == null) history.get(0).addVariable(new Variable("STOP", 0));
-    }
 
     public List<State> getHistory() {
         return history;
