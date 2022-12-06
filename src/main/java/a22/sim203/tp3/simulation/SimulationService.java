@@ -37,12 +37,11 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
      * Creates a service that runs a simulation
      * @param simulation the simulation to run
      * @param targetDeltaTime the target for the time in between simulation steps
-     * @param paused states if the simulation is running
      */
-    public SimulationService(Simulation simulation, double targetDeltaTime, boolean paused){
+    public SimulationService(Simulation simulation, double targetDeltaTime){
         setSimulation(simulation);
         setTargetDeltaTime(targetDeltaTime);
-        setPaused(paused);
+        setPaused(false);
     }
 
     /**
@@ -65,18 +64,38 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
             while (!isCancelled()){
                 setAbsoluteStartTime(System.currentTimeMillis());
                 Thread.sleep((long) (targetDeltaTime * 1000));
+
                 if (!isPaused()) {
-                    simulation.getHistory().set(simulation.getHistory().size() - 1, simulation.simulateStep(
-                            simulation.getHistory().get(simulation.getHistory().size() - 1).getVariable("t").getValue() + (double) (System.currentTimeMillis() - absoluteStartTime) / 1000,
-                            (double) (System.currentTimeMillis() - absoluteStartTime) / 1000,
-                            simulation.getHistory().get(simulation.getHistory().size() - 1)));
-                    if (simulation.getHistory(simulation.getHistory().size() - 1).getVariable("STOP").getValue() == 1.0)
+                    setLastState(simulation.simulateStep(getLastState().getVariable("t").getValue() + getDeltaTime(), getDeltaTime(), getLastState()));
+                    if (getLastState().getVariable("STOP").getValue() == 1.0)
                         setPaused(true);
                     else
-                        updateValue(simulation.getHistory(simulation.getHistory().size() - 1));
+                        updateValue(getLastState());
                 }
             }
             return null;
+        }
+
+        /**
+         * Returns the last simulated state
+         * @return the last simulated state
+         */
+        a22.sim203.tp3.simulation.State getLastState() {
+            return simulation.getHistory().get(simulation.getHistory().size() - 1);
+        }
+        /**
+         * Sets the last simulated state
+         */
+        void setLastState(a22.sim203.tp3.simulation.State state) {
+            simulation.getHistory().set(simulation.getHistory().size() - 1, state);
+        }
+
+        /**
+         * Returns the time difference between the two last simulated frames
+         * @return the time difference between the two last simulated frames
+         */
+        double getDeltaTime() {
+            return (double) (System.currentTimeMillis() - absoluteStartTime) / 1000;
         }
     }
 
@@ -105,6 +124,9 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
         if (absoluteStartTime < 0)
             throw new DateTimeException("Cannot have negative time");
         this.absoluteStartTime = absoluteStartTime;
+    }
+    public double getTargetDeltaTime() {
+        return targetDeltaTime;
     }
 
     public void setTargetDeltaTime(double targetDeltaTime) {
