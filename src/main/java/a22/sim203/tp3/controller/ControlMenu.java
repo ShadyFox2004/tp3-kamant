@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -16,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Controller class for the side menu
  */
-public class ControlMenu extends VBox implements Initializable {
+public class ControlMenu extends VBox {
 
     @FXML
     private ToggleButton pauseResumeButton;
@@ -79,6 +81,7 @@ public class ControlMenu extends VBox implements Initializable {
     @FXML
     void onStart(ActionEvent event) {
         window.onStartReset(event);
+
     }
 
     /**
@@ -90,17 +93,6 @@ public class ControlMenu extends VBox implements Initializable {
         window.onPauseResume(event);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-//        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/ControlMenu.fxml"));
-//        loader.setController(this);
-//        loader.setRoot(this);
-//        try {
-//            loader.load();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-    }
 
     public void setWindow(MainWindow window) {
         this.window = window;

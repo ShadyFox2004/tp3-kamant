@@ -53,10 +53,21 @@ public class MainWindow {
 
         controlMenu = new ControlMenu();
 
+        controlMenu = new ControlMenu();
+
         tabs.getTabs().add(new Tab("editor" ,editor));
         tabs.getTabs().add(new Tab("simulator", simulator));
         tabs.getTabs().add(new Tab("calculator" ,calculator));
         tabs.getTabs().add(new Tab("2D view" ,view2D));
+
+        sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
+
+        tabs.setOnDragExited(event -> {
+            Tab tab = (Tab) event.getSource();
+            tabToStage(tab);
+        });
+
+        tabs.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
 
         sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
 

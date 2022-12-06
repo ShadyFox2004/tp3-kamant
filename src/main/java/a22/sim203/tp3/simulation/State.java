@@ -11,10 +11,6 @@ import java.util.*;
 public class State implements Serializable {
     private Map<String, Variable> variableMap;
 
-    public Variable getVariable(String nom) {
-        return variableMap.get(nom);
-    }
-
     /**
      * Makes a deep copy of an existing state
      *
@@ -22,15 +18,25 @@ public class State implements Serializable {
      */
     public State(State copiedState) {
         this.variableMap = new HashMap<>();
-        for (Variable var : copiedState.variableMap.values()) {
+        for (Variable var : copiedState.variableMap.values())
             variableMap.put(var.getName(), new Variable(var));
-        }
+        addMinimumVars();
     }
 
     public State(Map<String, Variable> variableMap) {
         this.variableMap = variableMap;
+        addMinimumVars();
     }
 
+    private void addMinimumVars(){
+        if (variableMap.get("t") == null) variableMap.put("t", new Variable("t", 0));
+        if (variableMap.get("dt") == null) variableMap.put("dt", new Variable("dt", 0));
+        if (variableMap.get("STOP") == null) variableMap.put("STOP", new Variable("STOP", 0));
+    }
+
+    public Variable getVariable(String nom) {
+        return variableMap.get(nom);
+    }
 
     public Map<String, Variable> getVariableMap() {
         return variableMap;
