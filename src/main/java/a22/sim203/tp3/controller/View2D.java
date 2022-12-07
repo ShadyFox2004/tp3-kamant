@@ -20,6 +20,8 @@ public class View2D extends HBox{
     private String[] variables;
 
     @FXML
+    private AnchorPane anchor;
+    @FXML
     private Circle ball;
 
     public View2D() throws IOException {
@@ -34,9 +36,9 @@ public class View2D extends HBox{
      * @param state the state that contains the new information
      */
     void update(State state){
-        ball.setCenterX(state.getVariable(variables[0]).getValue());
-        ball.setCenterY(state.getVariable(variables[1]).getValue());
-
+        if (variables.length > 1)
+            AnchorPane.setBottomAnchor(anchor, state.getVariable(variables[1]).getValue());
+        AnchorPane.setLeftAnchor(anchor,state.getVariable(variables[0]).getValue());
     }
 
     /**

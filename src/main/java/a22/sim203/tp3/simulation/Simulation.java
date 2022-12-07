@@ -24,6 +24,14 @@ public class Simulation implements Serializable {
         history = new ArrayList<>();
     }
 
+    public Simulation(Simulation simulation) {
+        name = simulation.getName();
+        history = new ArrayList<>();
+        for (State state : simulation.getHistory()) {
+            history.add(new State(state));
+        }
+    }
+
     /**
      * Generates a step of the equation
      * @param t time since the start of the simulation
