@@ -45,6 +45,7 @@ public class History extends HBox {
     /**
      * Set the history with the new state
      * and select the last
+     * @author Antoine-Matis Boudreau
      */
     protected void setHistory(List<State> newHistory) {
         if (newHistory != null) {
