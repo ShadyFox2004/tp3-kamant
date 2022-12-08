@@ -78,21 +78,12 @@ public class SimulationEditor extends HBox {
 
         Simulation simulation = new Simulation();
         Map<String, Variable> variables = new HashMap<>();
-        variables.put("a", new Variable("a", 5));
-        variables.put("b", new Variable("b", Double.MAX_VALUE));
-        variables.put("c", new Variable("c", Double.MIN_VALUE));
         variables.put("dt", new Variable("dt", 3));
         variables.put("t", new Variable("t", 3));
-        Variable variableWithEquations = new Variable("d", 2);
-        variableWithEquations.addEquation(new Equation("double", "f(t)=t*2"));
-        variables.put("d", variableWithEquations);
         simulation.addInHistory(new State(variables));
-        HashMap<String, Variable> variables2 = new HashMap<>(variables);
-        variables2.remove("a");
-        simulation.addInHistory(new State(variables2));
-        simulation.setName("defaultName");
 
         variableList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        equationList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         simulationList.getItems().add(simulation);
 
@@ -111,17 +102,34 @@ public class SimulationEditor extends HBox {
             variableList.refresh();
         });
 
-        ContextMenu variableMenu = new ContextMenu();
-        variableMenu.getItems().addAll(addVariable, removeVariable);
+        MenuItem addEquation = new MenuItem("add");
+        MenuItem removeEquation = new MenuItem("remove");
 
-        variableList.setContextMenu(variableMenu);
+        addEquation.setOnAction(event -> {
+            Equation newEquation = DialogUtils.createEquationDialogue();
+            variableList.getSelectionModel().getSelectedItem().addEquation(newEquation);
+            update();
+        });
+
+        removeEquation.setOnAction(event -> {
+            Collection<Equation> equations =  equationList.getSelectionModel().getSelectedItems();
+            variableList.getSelectionModel().getSelectedItem().getEquationsList().removeAll(equations);
+            update();
+        });
+
+        equationList.setContextMenu(new ContextMenu(addEquation, removeEquation));
+        variableList.setContextMenu(new ContextMenu(addVariable, removeVariable));
         variableList.setCellFactory(new VariableCellFactory());
         variableList.setOnMousePressed(event -> {
             List<Equation> equations = variableList.getSelectionModel().getSelectedItem().getEquationsList();
-            equationList.setItems(FXCollections.observableList(equations));
+            update();
             simulator.setTrackedVariables(getSelectedVariables());
             view2D.setTrackedVariables(getSelectedVariables());
         });
+    }
+
+    private void update() {
+        equationList.setItems(FXCollections.observableList(variableList.getSelectionModel().getSelectedItem().getEquationsList()));
     }
 
     public void setSimulator(Simulator simulator) {
