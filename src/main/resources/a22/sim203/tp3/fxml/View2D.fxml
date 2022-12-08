@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Circle?>
 
-<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="256.0" minWidth="256.0" type="HBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="256.0" minWidth="256.0" type="HBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane fx:id="anchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="256.0" minWidth="256.0" HBox.hgrow="ALWAYS">
-         <children>
-            <Circle fx:id="ball" layoutX="14.0" layoutY="242.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="231.0" />
-         </children>
-      </AnchorPane>
+      <Canvas fx:id="canvas" height="400.0" width="400.0" />
    </children>
 </fx:root>
