@@ -52,7 +52,6 @@ public class History extends HBox {
             historyTable.getItems().clear();
             historyTable.setItems(FXCollections.observableList(newHistory));
             historyTable.getColumns().clear();
-            historyTable.getColumns().add(new TableColumn<State, String>("a"));
             historyTable.getItems().get(historyTable.getItems().size()-1).getVariableMap().forEach(new BiConsumer<String, Variable>() {
                 @Override
                 public void accept(String s, Variable variable) {
