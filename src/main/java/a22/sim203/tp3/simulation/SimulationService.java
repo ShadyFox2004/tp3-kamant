@@ -20,26 +20,26 @@ import static java.lang.Thread.interrupted;
 public class SimulationService extends Service<a22.sim203.tp3.simulation.State> {
 
     /**
-     * Simulation object, cannot be displayed in real time by javafx, use the clone constructor instead
-     */
-    private Simulation simulation;
-    /**
-     * the time in milliseconds between January 1, 1970, 00:00:00 GTM and when the last frame was generated
+     * The time in milliseconds between January 1, 1970, 00:00:00 GTM and when the last frame was generated
      * Standard time stored on the motherboard, can be had by calling System.currentTimeMillis()
      */
     private long absoluteStartTime;
-
+    /**
+     * The time in between frames the simulator is aiming for
+     */
     private double targetDeltaTime;
 
     private boolean paused;
 
+    private a22.sim203.tp3.simulation.State currentState;
+
     /**
      * Creates a service that runs a simulation
-     * @param simulation the simulation to run
+     * @param initialState the first state of the simulation
      * @param targetDeltaTime the target for the time in between simulation steps
      */
-    public SimulationService(Simulation simulation, double targetDeltaTime){
-        setSimulation(simulation);
+    public SimulationService(a22.sim203.tp3.simulation.State initialState, double targetDeltaTime){
+        setState(initialState);
         setTargetDeltaTime(targetDeltaTime);
         setPaused(false);
     }
@@ -66,49 +66,45 @@ public class SimulationService extends Service<a22.sim203.tp3.simulation.State> 
                 Thread.sleep((long) (targetDeltaTime * 1000));
 
                 if (!isPaused()) {
-                    setLastState(simulation.simulateStep(getLastState().getVariable("t").getValue() + getDeltaTime(), getDeltaTime(), getLastState()));
-                    if (getLastState().getVariable("STOP").getValue() == 1.0)
+                    currentState = simulateStep(currentState.getVariable("t").getValue() + getDeltaTime(), getDeltaTime(), currentState);
+                    if (currentState.getVariable("STOP").getValue() == 1.0)
                         setPaused(true);
                     else
-                        updateValue(getLastState());
+                        updateValue(currentState);
                 }
             }
             return null;
         }
-
-        /**
-         * Returns the last simulated state
-         * @return the last simulated state
-         */
-        a22.sim203.tp3.simulation.State getLastState() {
-            return simulation.getHistory().get(simulation.getHistory().size() - 1);
-        }
-        /**
-         * Sets the last simulated state
-         */
-        void setLastState(a22.sim203.tp3.simulation.State state) {
-            simulation.getHistory().set(simulation.getHistory().size() - 1, state);
-        }
-
-        /**
-         * Returns the time difference between the two last simulated frames
-         * @return the time difference between the two last simulated frames
-         */
         double getDeltaTime() {
             return (double) (System.currentTimeMillis() - absoluteStartTime) / 1000;
         }
-    }
 
-    public Simulation getSimulation() {
-        return simulation;
+        /**
+         * Generates a step of the equation
+         * @param t time since the start of the simulation
+         * @param dt time between the two frames
+         * @param initialState initial state
+         * @return final state
+         */
+        private a22.sim203.tp3.simulation.State simulateStep(double t, double dt, a22.sim203.tp3.simulation.State initialState) {
+            a22.sim203.tp3.simulation.State newState = new a22.sim203.tp3.simulation.State(initialState);//msd depp copy requise
+            newState.getVariable("dt").setValue(dt);
+            newState.getVariable("t").setValue(t);
+            Map<String, Variable> mapVars = newState.getVariableMap();
+            for (Variable var : mapVars.values())
+                for (Equation equation : var.getEquationsList()) {
+                    Function func = new Function(equation.getExpression());
+                    for (int i = 0; i < func.getArgumentsNumber(); i++)
+                        func.setArgumentValue(i, newState.getValFor(func.getArgument(i)));
+                    var.setValue(func.calculate());
+                }
+            return newState;
+        }
     }
-
-    public void setSimulation(Simulation simulation) {
-        if (simulation == null)
+    public void setState(a22.sim203.tp3.simulation.State state) {
+        if (state == null)
             throw new InvalidSimulationException("simulation is null");
-        if (simulation.getHistory().size() == 0)
-            throw new InvalidSimulationException("please set an initial state at index 0 of history");
-        this.simulation = simulation;
+        currentState = state;
     }
 
     public long getAbsoluteStartTime() {
