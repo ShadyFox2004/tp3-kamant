@@ -19,6 +19,7 @@ public class SaveUtils {
      */
     public static void saveSimulation(Simulation simulation, Stage stage){
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("./"));
         fileChooser.initialFileNameProperty().setValue(".sim");
         fileChooser.setTitle("Choose simulation save file location");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Simulation file", "*.sim"));
@@ -63,6 +64,7 @@ public class SaveUtils {
     public static Simulation loadSimulation(Stage stage) {
         Simulation simulation = null;
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("./"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Simulation file", "*.sim"));
         fileChooser.setTitle("Choose simulation file to load");
         File selectedFile = fileChooser.showOpenDialog(stage);

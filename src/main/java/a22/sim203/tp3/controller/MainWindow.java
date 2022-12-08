@@ -205,8 +205,8 @@ public class MainWindow {
         Button button = ((Button)e.getSource());
         if (button.getText().equals("Start")){
             button.setText("Reset");
+            service = new SimulationService(new Simulation(editor.getSimulation()), Double.parseDouble(controlMenu.simulationTime.getText()));
             history.setHistory(editor.getSimulation().getHistory());
-            service = new SimulationService(editor.getSimulation(), Double.parseDouble(controlMenu.simulationTime.getText()));
             service.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) update(newValue);});
             service.setOnFailed((event -> {System.out.println(event.getSource().getException());}));
             service.restart();
@@ -224,12 +224,14 @@ public class MainWindow {
     void update(State state){
         if (shouldQuery(state)) {
             simulator.update(state);
-            history.update(state);
+            view2D.update(state);
+            //history.update(state);
         }
     }
 
     /**
      * Calculates whether the chosen frame should be shown
+     * Used for enabling oversampling (running the simulation faster than what is shown) for greater accuracy without an overwhelming amount of information
      */
     private boolean shouldQuery(State state){
         double queryTime = Double.parseDouble(controlMenu.queryTime.getText());
