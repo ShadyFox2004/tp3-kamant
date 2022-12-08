@@ -3,9 +3,11 @@ package a22.sim203.tp3.controller;
 import a22.sim203.tp3.simulation.State;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,6 +17,17 @@ import java.util.List;
  * @author Antoine-Matis Boudreau
  */
 public class History extends HBox {
+
+    /**
+     * Creates a history object
+     * @throws IOException
+     */
+    public History() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../fxml/History.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
+    }
 
     @FXML
     private TableView<State> historyTable;

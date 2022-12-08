@@ -56,6 +56,7 @@ public class MainWindow {
         view2D = new View2D();
 
         controlMenu = new ControlMenu();
+        history = new History();
 
         controlMenu.setWindow(this);
         editor.setSimulator(simulator);
@@ -67,6 +68,7 @@ public class MainWindow {
         tabs.getTabs().add(new Tab("2D view" ,view2D));
 
         sideTabs.getTabs().add(new Tab("ControlMenu", controlMenu));
+        sideTabs.getTabs().add(new Tab("History", history));
 
         tabs.setOnDragExited(event -> {
             Tab tab = (Tab) event.getSource();
