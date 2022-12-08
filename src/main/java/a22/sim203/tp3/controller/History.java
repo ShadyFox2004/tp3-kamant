@@ -53,7 +53,7 @@ public class History extends HBox {
         if (newHistory != null) {
             // Sets the history items
             historyTable.getItems().clear();
-            historyTable.setItems(FXCollections.observableList(Arrays.stream(newHistory).toList()));
+            historyTable.setItems(FXCollections.observableArrayList(newHistory));
             historyTable.getColumns().clear();
             historyTable.getItems().get(historyTable.getItems().size()-1).getVariableMap().forEach(new BiConsumer<String, Variable>() {
                 @Override

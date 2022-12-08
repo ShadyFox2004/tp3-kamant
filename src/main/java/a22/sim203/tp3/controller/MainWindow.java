@@ -226,8 +226,8 @@ public class MainWindow {
         if (shouldQuery(state)) {
             simulator.update(state);
             view2D.update(state);
+            history.update(state);
         }
-        history.update(state);
     }
 
     /**
