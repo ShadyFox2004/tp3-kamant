@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.HBox;
 
 /**
@@ -57,7 +58,7 @@ public class SimulationEditor extends HBox {
     /**
      * Pointer to the history controller to request and set history
      */
-    //private History history;
+    private State state;
 
     /**
      * Pointer to the simulation graph display
@@ -92,17 +93,13 @@ public class SimulationEditor extends HBox {
         simulation.addInHistory(new State(variables2));
         simulation.setName("defaultName");
 
+        variableList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         simulationList.getItems().add(simulation);
 
         simulationList.setCellFactory(new SimulationCellFactory());
         simulationList.setOnMousePressed(event -> {
-            stateList.setItems(FXCollections.observableList(getSimulation().getHistory()));
-        });
-
-        stateList.setCellFactory(new StateCellFactory());
-        stateList.setOnMousePressed(event -> {
-            List<Variable> variables3 = stateList.getSelectionModel().getSelectedItem().getCollectionVariable().stream().toList();
-            variableList.setItems(FXCollections.observableList(variables3));
+            onSelectSimulation();
         });
 
         variableList.setCellFactory(new VariableCellFactory());
@@ -159,5 +156,13 @@ public class SimulationEditor extends HBox {
         return variables;
     }
 
-    public State getState(){return null;}
+    public void onSelectSimulation() {
+        variableList.getItems().clear();
+        variableList.getItems().addAll(getState().getVariableMap().values());
+        equationList.getItems().clear();
+    }
+
+    public State getState() {
+        return getSimulation().getLastState();
+    }
 }
