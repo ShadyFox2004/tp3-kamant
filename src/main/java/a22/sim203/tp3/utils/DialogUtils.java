@@ -1,5 +1,6 @@
 package a22.sim203.tp3.utils;
 
+import a22.sim203.tp3.simulation.Variable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import org.mariuszgromada.math.mxparser.Function;
@@ -39,5 +40,29 @@ public class DialogUtils {
             textInputDialog.close();
         });
         return newFunction[0];
+    }
+
+    /**
+     * Asks the user for a new variable
+     * If the variable is invalid, good luck with that
+     * @return the new Variable
+     */
+    public static Variable createVariableDialogue() {
+        final Variable[] newVariable = new Variable[1];
+
+        TextInputDialog textInputDialog = new TextInputDialog("x");
+        textInputDialog.setContentText("f(x) = ");
+        textInputDialog.setHeaderText("Enter the definition for the new function");
+        textInputDialog.setTitle("Create a new function");
+
+
+        Optional<String> text = textInputDialog.showAndWait();
+
+        text.ifPresent(r -> {
+            newVariable[0] = new Variable(text.get(),0);
+            textInputDialog.close();
+        });
+
+        return newVariable[0];
     }
 }

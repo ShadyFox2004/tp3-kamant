@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import a22.sim203.tp3.factory.SimulationCellFactory;
 import a22.sim203.tp3.factory.StateCellFactory;
@@ -12,15 +13,13 @@ import a22.sim203.tp3.simulation.Equation;
 import a22.sim203.tp3.simulation.Simulation;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.simulation.Variable;
+import a22.sim203.tp3.utils.DialogUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 /**
@@ -102,6 +101,20 @@ public class SimulationEditor extends HBox {
             onSelectSimulation();
         });
 
+        MenuItem addVariable = new MenuItem("add");
+        addVariable.setOnAction(event -> {
+            addVariables(DialogUtils.createVariableDialogue());
+        });
+        MenuItem removeVariable = new MenuItem("remove");
+        removeVariable.setOnAction(event -> {
+            removeVariables(variableList.getSelectionModel().getSelectedItems());
+            variableList.refresh();
+        });
+
+        ContextMenu variableMenu = new ContextMenu();
+        variableMenu.getItems().addAll(addVariable, removeVariable);
+
+        variableList.setContextMenu(variableMenu);
         variableList.setCellFactory(new VariableCellFactory());
         variableList.setOnMousePressed(event -> {
             List<Equation> equations = variableList.getSelectionModel().getSelectedItem().getEquationsList();
@@ -164,5 +177,28 @@ public class SimulationEditor extends HBox {
 
     public State getState() {
         return getSimulation().getLastState();
+    }
+
+    /**
+     * Adds a new variable in the state
+     * @param newVariable
+     */
+    public void addVariables(Variable...newVariable) {
+        variableList.getItems().addAll(newVariable);
+        getState().addVariables(newVariable);
+    }
+
+    /**
+     * Remove a variable
+     * Won't remove a variable that is important
+     * @param variables to remove
+     */
+    public void removeVariables(Collection<Variable> variables) {
+        variables = variables.stream().filter(variable -> {
+            return !variable.getName().matches("(t)|(dt)|(STOP)");
+        }).toList(); //Filters the vars for important ones
+
+        variableList.getItems().removeAll(variables);
+        getState().removeVariables(variables);
     }
 }
