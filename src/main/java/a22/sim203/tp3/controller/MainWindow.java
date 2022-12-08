@@ -44,6 +44,11 @@ public class MainWindow {
     @FXML
     private TabPane sideTabs;
 
+    /**
+     * Know if the simulation is running
+     */
+    private Boolean started = false;
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException {
         editor = new SimulationEditor();

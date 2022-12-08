@@ -3,6 +3,7 @@ package a22.sim203.tp3.simulation;
 import org.mariuszgromada.math.mxparser.Argument;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -29,9 +30,9 @@ public class State implements Serializable {
 
     public State(Map<String, Variable> variableMap) {
         this.variableMap = variableMap;
-        if (this.variableMap.get("t") == null) addVariable(new Variable("t", 0));
-        if (this.variableMap.get("dt") == null) addVariable(new Variable("dt", 0));
-        if (this.variableMap.get("STOP") == null) addVariable(new Variable("STOP", 0));
+        if (this.variableMap.get("t") == null) addVariables(new Variable("t", 0));
+        if (this.variableMap.get("dt") == null) addVariables(new Variable("dt", 0));
+        if (this.variableMap.get("STOP") == null) addVariables(new Variable("STOP", 0));
     }
 
 
@@ -43,8 +44,16 @@ public class State implements Serializable {
         return variableMap.values();
     }
 
-    public void addVariable(Variable variable) {
-        variableMap.put(variable.getName(), variable);
+    public void addVariables(Variable...newVariables) {
+        Arrays.stream(newVariables).forEach(variable -> {
+            variableMap.put(variable.getName(), variable);
+        });
+    }
+
+    public void removeVariables(Collection<Variable> variables) {
+        variables.forEach(variable -> {
+            variableMap.remove(variable.getName());
+        });
     }
 
     public double getValFor(Argument argFind) {

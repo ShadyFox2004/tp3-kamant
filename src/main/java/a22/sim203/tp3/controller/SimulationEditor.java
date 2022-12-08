@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import a22.sim203.tp3.factory.SimulationCellFactory;
 import a22.sim203.tp3.factory.StateCellFactory;
@@ -12,15 +13,13 @@ import a22.sim203.tp3.simulation.Equation;
 import a22.sim203.tp3.simulation.Simulation;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.simulation.Variable;
+import a22.sim203.tp3.utils.DialogUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 /**
@@ -79,21 +78,12 @@ public class SimulationEditor extends HBox {
 
         Simulation simulation = new Simulation();
         Map<String, Variable> variables = new HashMap<>();
-        variables.put("a", new Variable("a", 5));
-        variables.put("b", new Variable("b", Double.MAX_VALUE));
-        variables.put("c", new Variable("c", Double.MIN_VALUE));
         variables.put("dt", new Variable("dt", 3));
         variables.put("t", new Variable("t", 3));
-        Variable variableWithEquations = new Variable("d", 2);
-        variableWithEquations.addEquation(new Equation("double", "f(t)=t*2"));
-        variables.put("d", variableWithEquations);
         simulation.addInHistory(new State(variables));
-        HashMap<String, Variable> variables2 = new HashMap<>(variables);
-        variables2.remove("a");
-        simulation.addInHistory(new State(variables2));
-        simulation.setName("defaultName");
 
         variableList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        equationList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         simulationList.getItems().add(simulation);
 
@@ -102,13 +92,44 @@ public class SimulationEditor extends HBox {
             onSelectSimulation();
         });
 
+        MenuItem addVariable = new MenuItem("add");
+        addVariable.setOnAction(event -> {
+            addVariables(DialogUtils.createVariableDialogue());
+        });
+        MenuItem removeVariable = new MenuItem("remove");
+        removeVariable.setOnAction(event -> {
+            removeVariables(variableList.getSelectionModel().getSelectedItems());
+            variableList.refresh();
+        });
+
+        MenuItem addEquation = new MenuItem("add");
+        MenuItem removeEquation = new MenuItem("remove");
+
+        addEquation.setOnAction(event -> {
+            Equation newEquation = DialogUtils.createEquationDialogue();
+            variableList.getSelectionModel().getSelectedItem().addEquation(newEquation);
+            update();
+        });
+
+        removeEquation.setOnAction(event -> {
+            Collection<Equation> equations =  equationList.getSelectionModel().getSelectedItems();
+            variableList.getSelectionModel().getSelectedItem().getEquationsList().removeAll(equations);
+            update();
+        });
+
+        equationList.setContextMenu(new ContextMenu(addEquation, removeEquation));
+        variableList.setContextMenu(new ContextMenu(addVariable, removeVariable));
         variableList.setCellFactory(new VariableCellFactory());
         variableList.setOnMousePressed(event -> {
             List<Equation> equations = variableList.getSelectionModel().getSelectedItem().getEquationsList();
-            equationList.setItems(FXCollections.observableList(equations));
+            update();
             simulator.setTrackedVariables(getSelectedVariables());
             view2D.setTrackedVariables(getSelectedVariables());
         });
+    }
+
+    private void update() {
+        equationList.setItems(FXCollections.observableList(variableList.getSelectionModel().getSelectedItem().getEquationsList()));
     }
 
     public void setSimulator(Simulator simulator) {
@@ -164,5 +185,28 @@ public class SimulationEditor extends HBox {
 
     public State getState() {
         return getSimulation().getLastState();
+    }
+
+    /**
+     * Adds a new variable in the state
+     * @param newVariable
+     */
+    public void addVariables(Variable...newVariable) {
+        variableList.getItems().addAll(newVariable);
+        getState().addVariables(newVariable);
+    }
+
+    /**
+     * Remove a variable
+     * Won't remove a variable that is important
+     * @param variables to remove
+     */
+    public void removeVariables(Collection<Variable> variables) {
+        variables = variables.stream().filter(variable -> {
+            return !variable.getName().matches("(t)|(dt)|(STOP)");
+        }).toList(); //Filters the vars for important ones
+
+        variableList.getItems().removeAll(variables);
+        getState().removeVariables(variables);
     }
 }
