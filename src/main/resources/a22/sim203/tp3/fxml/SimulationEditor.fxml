@@ -9,7 +9,7 @@
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
          <children>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="22.0" prefWidth="150.0" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="150.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="ADD" HBox.hgrow="ALWAYS" />
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="REMOVE" HBox.hgrow="ALWAYS" />
@@ -18,7 +18,6 @@
             <ListView fx:id="simulationList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <ListView fx:id="stateList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
       <ListView fx:id="variableList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
       <ListView fx:id="equationList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
    </children>

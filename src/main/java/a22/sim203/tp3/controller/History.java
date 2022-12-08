@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -47,11 +49,11 @@ public class History extends HBox {
      * and select the last
      * @author Antoine-Matis Boudreau
      */
-    protected void setHistory(List<State> newHistory) {
+    protected void setHistory(State...newHistory) {
         if (newHistory != null) {
             // Sets the history items
             historyTable.getItems().clear();
-            historyTable.setItems(FXCollections.observableList(newHistory));
+            historyTable.setItems(FXCollections.observableList(Arrays.stream(newHistory).toList()));
             historyTable.getColumns().clear();
             historyTable.getItems().get(historyTable.getItems().size()-1).getVariableMap().forEach(new BiConsumer<String, Variable>() {
                 @Override
