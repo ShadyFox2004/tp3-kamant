@@ -158,4 +158,6 @@ public class SimulationEditor extends HBox {
         }
         return variables;
     }
+
+    public State getState(){return null;}
 }

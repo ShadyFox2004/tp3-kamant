@@ -1,7 +1,7 @@
 package a22.sim203.tp3.controller;
 
-import a22.sim203.tp3.simulation.Simulation;
-import a22.sim203.tp3.simulation.SimulationService;
+import a22.sim203.tp3.services.SimulationService;
+import a22.sim203.tp3.services.WindowAnimationService;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
 import javafx.event.ActionEvent;
@@ -20,19 +20,15 @@ import java.util.List;
  * @author Kamran Charles Nayebi + Antoine-Matis Boudreau
  */
 public class MainWindow {
-    /**
-     * Pointer to the SimulationEditor
-     */
+
+    private Stage stage;
     private SimulationEditor editor;
     private Simulator simulator;
     private View2D view2D;
     private Calculator calculator;
     private History history;
-
     private SimulationService service;
-
     private ControlMenu controlMenu;
-
     private List<Stage> stages = new ArrayList<>();
     @FXML
     private MenuItem popinButton;
@@ -82,17 +78,34 @@ public class MainWindow {
 
 
     /**
-     * Pop out the tabs into stages
+     * Pop out the tabs into stages and start the window positioning animation
      * // TODO make this cleaner
      */
     @FXML
     private void popout() {
         popoutButton.setDisable(true);
-        while (tabs.getTabs().iterator().hasNext()) {
-            Tab tab = tabs.getTabs().iterator().next();
-            tabToStage(tab);
+        Stage[] stages = new Stage[tabs.getTabs().size()+1];
+        WindowAnimationService service = new WindowAnimationService();
+        service.setOnFailed((event -> {System.out.println(event.getSource().getException());}));;
+        service.valueProperty().addListener(((a, o, n) -> {
+            if (n != null) {
+                for (int i = 0; i < stages.length; i++) {
+                    stages[i].setX(n[i].getX());
+                    stages[i].setY(n[i].getY());
+                    stages[i].setWidth(n[i].getWidth());
+                    stages[i].setHeight(n[i].getHeight());
+                    service.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
+                }
+            }
+        }));
+        stages[0] = stage;
+        service.addActual(new WindowAnimationService.LocationSize(stages[0].getX(), stages[0].getY(), stages[0].getWidth(), stages[0].getHeight()));
+        for (int i = 1; i < stages.length; i++) {
+            stages[i] = tabToStage(tabs.getTabs().get(0));
+            service.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
         }
         updatePopItems();
+        service.restart();
     }
 
     /**
@@ -242,5 +255,9 @@ public class MainWindow {
         //Find what query time the simulated time is closest to and smaller or equal than
         double closestQueryTime = queryTime * (int)simulatedTime/queryTime != simulatedTime ? queryTime * (int)simulatedTime/queryTime + queryTime : simulatedTime;
         return simulatedTime + service.getTargetDeltaTime() > closestQueryTime;
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 }
