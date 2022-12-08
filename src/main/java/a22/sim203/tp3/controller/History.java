@@ -2,7 +2,9 @@ package a22.sim203.tp3.controller;
 
 import a22.sim203.tp3.simulation.State;
 import javafx.collections.FXCollections;
-import javafx.scene.control.ListView;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 
 import java.util.List;
 
@@ -10,10 +12,12 @@ import java.util.List;
  * Class that handles history management for the current simulation
  * Controller for the ListView in the side pane
  * @author Kamran Charles Nayebi
+ * @author Antoine-Matis Boudreau
  */
-public class History {
+public class History extends HBox {
 
-    ListView<State> history;
+    @FXML
+    private TableView<State> historyTable;
 
     /**
      * Set the history with the new state
@@ -21,9 +25,8 @@ public class History {
      */
     protected void setHistory(List<State> newHistory) {
         if (newHistory != null) {
-
-            history.setItems(FXCollections.observableList(newHistory));
-            history.getSelectionModel().select(history.getItems().size()-1);
+            historyTable.getItems().clear();
+            historyTable.setItems(FXCollections.observableList(newHistory));
         }
     }
 
@@ -32,7 +35,7 @@ public class History {
      * @param newState new state of the simulation
      */
     protected void update(State newState) {
-        history.getItems().add(newState);
+        historyTable.getItems().add(newState);
     }
 
     /**
@@ -40,7 +43,7 @@ public class History {
      * @return the state that is selected in the ListView
      */
     protected State getSelectedState() {
-        return history.getSelectionModel().getSelectedItem();
+        return historyTable.getSelectionModel().getSelectedItem();
     }
 
     /**
@@ -48,13 +51,13 @@ public class History {
      * If null is passed for a selected state, it will remain unchanged
      */
     protected void setSelectedState(State state){
-        history.getSelectionModel().select(state);
+        historyTable.getSelectionModel().select(state);
     }
 
     /**
      * Returns the history of the simulation
      */
-    protected javafx.scene.control.ListView<State> getHistory(){
-        return history;
+    protected TableView<State> getHistory(){
+        return historyTable;
     }
 }
