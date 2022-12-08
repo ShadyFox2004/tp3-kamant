@@ -205,8 +205,9 @@ public class MainWindow {
         Button button = ((Button)e.getSource());
         if (button.getText().equals("Start")){
             button.setText("Reset");
-            service = new SimulationService(new State(editor.getState()), Double.parseDouble(controlMenu.simulationTime.getText()));
-            history.setHistory(editor.getSimulation().getHistory());
+            State stateCopy = new State(editor.getState());
+            service = new SimulationService(stateCopy, Double.parseDouble(controlMenu.simulationTime.getText()));
+            history.setHistory(new State(stateCopy));
             service.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) update(newValue);});
             service.setOnFailed((event -> {System.out.println(event.getSource().getException());}));
             service.restart();
@@ -225,8 +226,8 @@ public class MainWindow {
         if (shouldQuery(state)) {
             simulator.update(state);
             view2D.update(state);
+            history.update(state);
         }
-        history.update(state);
     }
 
     /**
