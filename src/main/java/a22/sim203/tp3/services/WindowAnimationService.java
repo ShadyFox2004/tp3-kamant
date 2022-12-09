@@ -38,16 +38,16 @@ public class WindowAnimationService extends Service<WindowAnimationService.Locat
         protected LocationSize[] call() throws Exception {
             calculateTarget();
             while (!isCancelled() && !actual.equals(target)) {
-                LocationSize[] tailles = new LocationSize[target.size()];
+                LocationSize[] tailles = new LocationSize[actual.size()];
                 for (int i = 0; i < tailles.length; i++) {
                     tailles[i] = new LocationSize(incrementValeur(actual.get(i).x, target.get(i).x, locationIncrement), 
                             incrementValeur(actual.get(i).y, target.get(i).y, locationIncrement), 
                             incrementValeur(actual.get(i).width, target.get(i).width, tailleIncrement), 
                             incrementValeur(actual.get(i).height, target.get(i).height, tailleIncrement)).clone();
+                    actual.set(i, tailles[i]);
                 }
-                actual = new ArrayList<>();
                 updateValue(tailles);
-                Thread.sleep(30);
+                Thread.sleep(5);
             }
             return null;
         }

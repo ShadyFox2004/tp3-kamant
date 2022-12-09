@@ -3,6 +3,7 @@ import a22.sim203.tp3.SimulationApp;
 import a22.sim203.tp3.exception.IncorrectSyntaxException;
 import a22.sim203.tp3.factory.ExpressionCellFactory;
 import a22.sim203.tp3.factory.FunctionCellFactory;
+import a22.sim203.tp3.utils.DialogUtils;
 import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -27,7 +28,7 @@ import java.net.URL;
 import java.util.*;
 
 import static a22.sim203.tp3.utils.DialogUtils.createAlert;
-import static a22.sim203.tp3.utils.DialogUtils.createFunctionDialogue;
+import static a22.sim203.tp3.utils.DialogUtils.createEquationDialogue;
 
 /**
  * Calculator tab to (maybe) edit a specific simulation state (not required)
@@ -263,14 +264,14 @@ public class Calculator extends HBox {
         removeItem.setOnAction((event ->
                 functions.getItems().remove(functions.getSelectionModel().getSelectedItem())));
 
-        addItem.setOnAction(event -> {
-            Function function = createFunctionDialogue();
-            if (function.checkSyntax()) {
-                functions.getItems().add(function);
-            } else {
-                createAlert(new IncorrectSyntaxException(function.getFunctionExpressionString()));
-            }
-        });
+//        addItem.setOnAction(event -> {
+//            Function function = DialogUtils.createFunctionDialogue();
+//            if (function.checkSyntax()) {
+//                functions.getItems().add(function);
+//            } else {
+//                createAlert(new IncorrectSyntaxException(function.getFunctionExpressionString()));
+//            }
+//        });
 
         functions.setItems(FXCollections.observableList(new ArrayList<>()));
         functions.getItems().addAll(DEFAULT_FUNCTIONS);

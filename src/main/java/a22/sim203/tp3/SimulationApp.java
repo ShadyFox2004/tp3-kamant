@@ -27,8 +27,10 @@ public class SimulationApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("fxml/MainWindow.fxml"));
         Parent root = fxmlLoader.load();
         ((MainWindow)fxmlLoader.getController()).setStage(primaryStage);
-        primaryStage.setMinHeight(600);
-        primaryStage.setMinWidth(700);
+        primaryStage.setMinHeight(300);
+        primaryStage.setMinWidth(300);
+        primaryStage.setHeight(600);
+        primaryStage.setWidth(800);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
