@@ -4,6 +4,7 @@ import a22.sim203.tp3.services.SimulationService;
 import a22.sim203.tp3.services.WindowAnimationService;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -181,7 +182,7 @@ public class MainWindow {
      */
     @FXML
     void onClose() {
-        // TODO figure out how?
+        Platform.exit();
     }
 
     /**
