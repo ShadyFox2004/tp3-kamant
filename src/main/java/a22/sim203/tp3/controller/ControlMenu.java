@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class ControlMenu extends VBox {
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
+        this.addEventFilter(KeyEvent.ANY, (event)-> {if (!event.getCharacter().matches("[0-9.]")) event.consume();} );
     }
 
     /**
