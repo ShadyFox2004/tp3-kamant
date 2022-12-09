@@ -244,8 +244,8 @@ public class MainWindow {
         if (shouldQuery(state)) {
             simulator.update(state);
             view2D.update(state);
-            history.update(state);
         }
+        history.update(state);
     }
 
     /**
@@ -255,7 +255,7 @@ public class MainWindow {
     private boolean shouldQuery(State state){
         double queryTime = Double.parseDouble(controlMenu.queryTime.getText());
         //Find out the exponent of the query time
-        double exponent = Math.floor(Math.log10(Math.abs(queryTime)));
+        double exponent = Math.floor(Math.log10(Math.abs(service.getTargetDeltaTime())));
         //Round the simulated time to the precision of the query time
         double simulatedTime = Math.round(state.getVariable("t").getValue()*Math.pow(10, -exponent))/Math.pow(10, -exponent);
         //Find what query time the simulated time is closest to and smaller or equal than

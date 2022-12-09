@@ -40,7 +40,7 @@ public class ControlMenu extends VBox {
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
-        this.addEventFilter(KeyEvent.ANY, (event)-> {if (!event.getCharacter().matches("[0-9.]")) event.consume();} );
+        this.addEventFilter(KeyEvent.KEY_TYPED, (event)-> {if (!event.getCharacter().matches("[0-9.]")) event.consume();} );
     }
 
     /**
