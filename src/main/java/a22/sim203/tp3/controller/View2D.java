@@ -41,11 +41,11 @@ public class View2D extends HBox {
      * @param state the state that contains the new information
      */
     void update(State state){
-        gc.clearRect(0,0,400,400);
+        gc.clearRect(0,0,1000,1000);
         if (variables.length > 1)
-            gc.fillOval(state.getVariable(variables[0]).getValue(),state.getVariable(variables[1]).getValue(),10,10);
+            gc.fillOval(300 + state.getVariable(variables[0]).getValue(), 200 + state.getVariable(variables[1]).getValue(),40,40);
         else
-            gc.fillOval(state.getVariable(variables[0]).getValue(),100,10,10);
+            gc.fillOval(300 + state.getVariable(variables[0]).getValue(),300,40,40);
     }
 
     /**
