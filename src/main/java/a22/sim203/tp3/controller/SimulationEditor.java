@@ -192,6 +192,7 @@ public class SimulationEditor extends HBox {
      * @param newVariable
      */
     public void addVariables(Variable...newVariable) {
+        if(newVariable == null) return;
         variableList.getItems().addAll(newVariable);
         getState().addVariables(newVariable);
     }

@@ -30,9 +30,8 @@ public class DialogUtils {
         final Equation[] newEquation = new Equation[1]; //Only used for having a pointer to call upon
 
         TextInputDialog textInputDialog = new TextInputDialog("x");
-        textInputDialog.setContentText("f(x) = ");
-        textInputDialog.setHeaderText("Enter the definition for the new function");
-        textInputDialog.setTitle("Create a new function");
+        textInputDialog.setHeaderText("Enter the designation for the new variable");
+        textInputDialog.setTitle("Create a new variable");
 
         Optional<String> text = textInputDialog.showAndWait();
 
@@ -40,6 +39,7 @@ public class DialogUtils {
             newEquation[0] = new Equation(text.get(), text.get());
             textInputDialog.close();
         });
+
         return newEquation[0];
     }
 
