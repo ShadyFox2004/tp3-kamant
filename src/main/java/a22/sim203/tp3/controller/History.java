@@ -75,6 +75,7 @@ public class History extends HBox {
      */
     protected void update(State newState) {
         historyTable.getItems().add(newState);
+        historyTable.scrollTo(newState);
     }
 
     /**
