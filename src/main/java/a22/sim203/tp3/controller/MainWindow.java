@@ -259,21 +259,6 @@ public class MainWindow {
         view2D.update(state);
     }
 
-    /**
-     * Calculates whether the chosen frame should be shown
-     * Used for enabling oversampling (running the simulation faster than what is shown) for greater accuracy without an overwhelming amount of information
-     */
-    private boolean shouldQuery(State state){
-        double queryTime = Double.parseDouble(controlMenu.queryTime.getText());
-        //Find out the exponent of the query time
-        double exponent = Math.floor(Math.log10(Math.abs(simulationService.getTargetDeltaTime())));
-        //Round the simulated time to the precision of the query time
-        double simulatedTime = Math.round(state.getVariable("t").getValue()*Math.pow(10, -exponent))/Math.pow(10, -exponent);
-        //Find what query time the simulated time is closest to and smaller or equal than
-        double closestQueryTime = queryTime * (int)simulatedTime/queryTime != simulatedTime ? queryTime * (int)simulatedTime/queryTime + queryTime : simulatedTime;
-        return simulatedTime + simulationService.getTargetDeltaTime() > closestQueryTime;
-    }
-
     public void setStage(Stage stage){
         this.stage = stage;
     }
