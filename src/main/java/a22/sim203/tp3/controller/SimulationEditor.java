@@ -182,6 +182,7 @@ public class SimulationEditor extends HBox {
                 String newName = askUserDialogue("new expression", "Equation expression editing", name);
                 if (newName != null) {
                     equationList.getSelectionModel().getSelectedItem().setExpression(newName);
+                    equationList.refresh();
                 }
             }
         });
@@ -218,6 +219,7 @@ public class SimulationEditor extends HBox {
                 String newName = askUserDialogue("Editing the variable name", "Variable name editing", name);
                 if(newName != null) {
                     variable.setName(newName);
+                    variableList.refresh();
                 }
             });
         });
@@ -281,6 +283,7 @@ public class SimulationEditor extends HBox {
     public void addSimulation(Simulation simulation){
         simulationList.getItems().add(simulation);
         simulationList.getSelectionModel().select(simulation);
+        updateVariable();
     }
 
     /**
