@@ -44,6 +44,7 @@ public class ControlMenu extends VBox {
         addEventFilter(KeyEvent.KEY_TYPED, (event)-> {if (!event.getCharacter().matches("[0-9.]")) event.consume();});
         simulationTime.focusedProperty().addListener((observable, oldValue, newValue) -> window.onSimulationTimeSet(Double.parseDouble(simulationTime.getText())));
         queryTime.focusedProperty().addListener((observable, oldValue, newValue) -> window.onQueryTimeSet(Double.parseDouble(queryTime.getText())));
+
     }
 
     /**

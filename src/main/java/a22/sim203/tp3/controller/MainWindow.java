@@ -254,6 +254,7 @@ public class MainWindow {
      * Gets called when a new frame is queried
      * @param state the new state
      */
+
     void updateDisplay(State state){
         simulator.update(state);
         view2D.update(state);
