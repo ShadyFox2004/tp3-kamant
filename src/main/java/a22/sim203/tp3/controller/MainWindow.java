@@ -100,7 +100,6 @@ public class MainWindow {
                     stages[i].setY(n[i].getY());
                     stages[i].setWidth(n[i].getWidth());
                     stages[i].setHeight(n[i].getHeight());
-                    //simulationService.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
                 }
             }
         }));
