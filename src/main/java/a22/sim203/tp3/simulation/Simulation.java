@@ -13,6 +13,7 @@ public class Simulation implements Serializable {
 
     private String name;
     private List<State> history;// state 0 is the first state of the history
+    private int simulatedSteps;
 
     public Simulation(String name, List<State> history) {
         this.name = name;
@@ -75,4 +76,11 @@ public class Simulation implements Serializable {
         return Objects.equals(name, ((Simulation)o).name) && Objects.equals(history, ((Simulation)o).history);
     }
 
+    public int getSimulatedSteps() {
+        return simulatedSteps;
+    }
+
+    public void setSimulatedSteps(int simulatedSteps) {
+        this.simulatedSteps = simulatedSteps;
+    }
 }

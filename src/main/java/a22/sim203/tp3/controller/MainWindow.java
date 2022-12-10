@@ -214,7 +214,15 @@ public class MainWindow {
         } else {
             button.setText("Pause");
             service.setPaused(false);
+            updateStepCountInSimulation();
         }
+    }
+
+    /**
+     * Updates the simulated step count
+     */
+    void updateStepCountInSimulation() {
+        editor.getSimulation().setSimulatedSteps(history.getHistory().getItems().size());
     }
 
     /**
@@ -234,6 +242,7 @@ public class MainWindow {
             button.setText("Start");
             service.cancel();
             simulator.clear();
+            updateStepCountInSimulation();
         }
     }
 
