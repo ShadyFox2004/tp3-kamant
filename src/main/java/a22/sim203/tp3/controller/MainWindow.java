@@ -1,15 +1,18 @@
 package a22.sim203.tp3.controller;
 
+import a22.sim203.tp3.services.QueryService;
 import a22.sim203.tp3.services.SimulationService;
 import a22.sim203.tp3.services.WindowAnimationService;
 import a22.sim203.tp3.simulation.State;
 import a22.sim203.tp3.utils.SaveUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,23 +30,21 @@ public class MainWindow {
     private View2D view2D;
     private Calculator calculator;
     private History history;
-    private SimulationService service;
+    private SimulationService simulationService;
+    private QueryService queryService;
     private ControlMenu controlMenu;
     private List<Stage> stages = new ArrayList<>();
     @FXML
     private MenuItem popinButton;
     @FXML
     private MenuItem popoutButton;
-
     @FXML
     private TabPane tabs;
-
     @FXML
     private SplitPane slidePane;
-
     @FXML
     private TabPane sideTabs;
-
+    
     /**
      * Know if the simulation is running
      */
@@ -90,27 +91,27 @@ public class MainWindow {
     private void popout() {
         popoutButton.setDisable(true);
         Stage[] stages = new Stage[tabs.getTabs().size()+1];
-        WindowAnimationService service = new WindowAnimationService();
-        service.setOnFailed((event -> {System.out.println(event.getSource().getException());}));;
-        service.valueProperty().addListener(((a, o, n) -> {
+        WindowAnimationService simulationService = new WindowAnimationService();
+        simulationService.setOnFailed((event -> {System.out.println(event.getSource().getException());}));;
+        simulationService.valueProperty().addListener(((a, o, n) -> {
             if (n != null) {
                 for (int i = 0; i < stages.length; i++) {
                     stages[i].setX(n[i].getX());
                     stages[i].setY(n[i].getY());
                     stages[i].setWidth(n[i].getWidth());
                     stages[i].setHeight(n[i].getHeight());
-                    //service.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
+                    //simulationService.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
                 }
             }
         }));
         stages[0] = stage;
-        service.addActual(new WindowAnimationService.LocationSize(stages[0].getX(), stages[0].getY(), stages[0].getWidth(), stages[0].getHeight()));
+        simulationService.addActual(new WindowAnimationService.LocationSize(stages[0].getX(), stages[0].getY(), stages[0].getWidth(), stages[0].getHeight()));
         for (int i = 1; i < stages.length; i++) {
             stages[i] = tabToStage(tabs.getTabs().get(0));
-            service.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
+            simulationService.addActual(new WindowAnimationService.LocationSize(stages[i].getX(), stages[i].getY(), stages[i].getWidth(), stages[i].getHeight()));
         }
         updatePopItems();
-        service.restart();
+        simulationService.restart();
     }
 
     /**
@@ -181,7 +182,7 @@ public class MainWindow {
      */
     @FXML
     void onClose() {
-        // TODO figure out how?
+        Platform.exit();
     }
 
     /**
@@ -209,10 +210,12 @@ public class MainWindow {
         Button button = ((Button)e.getSource());
         if (button.getText().equals("Pause")){
             button.setText("Resume");
-            service.setPaused(true);
+            simulationService.setPaused(true);
+            queryService.setPaused(true);
         } else {
             button.setText("Pause");
-            service.setPaused(false);
+            simulationService.setPaused(false);
+            queryService.setPaused(false);
         }
     }
 
@@ -223,15 +226,18 @@ public class MainWindow {
         Button button = ((Button)e.getSource());
         if (button.getText().equals("Start")){
             button.setText("Reset");
-            State stateCopy = new State(editor.getState());
-            service = new SimulationService(stateCopy, Double.parseDouble(controlMenu.simulationTime.getText()));
-            history.setHistory(new State(stateCopy));
-            service.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) update(newValue);});
-            service.setOnFailed((event -> {System.out.println(event.getSource().getException());}));
-            service.restart();
+            simulationService = new SimulationService(new State(editor.getState()), Double.parseDouble(controlMenu.simulationTime.getText()));
+            queryService = new QueryService(simulationService, Double.parseDouble(controlMenu.queryTime.getText()));
+            history.setHistory(new State(editor.getState()));
+            simulationService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) update(newValue);});
+            queryService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) updateDisplay(newValue);});
+            simulationService.setOnFailed((event -> {System.out.println(event.getSource().getException());}));
+            simulationService.restart();
+            queryService.restart();
         } else {
             button.setText("Start");
-            service.cancel();
+            simulationService.cancel();
+            queryService.cancel();
             simulator.clear();
         }
     }
@@ -241,11 +247,16 @@ public class MainWindow {
      * @param state the new state
      */
     void update(State state){
-        if (shouldQuery(state)) {
-            simulator.update(state);
-            view2D.update(state);
-            history.update(state);
-        }
+        history.update(state);
+    }
+
+    /**
+     * Gets called when a new frame is queried
+     * @param state the new state
+     */
+    void updateDisplay(State state){
+        simulator.update(state);
+        view2D.update(state);
     }
 
     /**
@@ -255,15 +266,33 @@ public class MainWindow {
     private boolean shouldQuery(State state){
         double queryTime = Double.parseDouble(controlMenu.queryTime.getText());
         //Find out the exponent of the query time
-        double exponent = Math.floor(Math.log10(Math.abs(queryTime)));
+        double exponent = Math.floor(Math.log10(Math.abs(simulationService.getTargetDeltaTime())));
         //Round the simulated time to the precision of the query time
         double simulatedTime = Math.round(state.getVariable("t").getValue()*Math.pow(10, -exponent))/Math.pow(10, -exponent);
         //Find what query time the simulated time is closest to and smaller or equal than
         double closestQueryTime = queryTime * (int)simulatedTime/queryTime != simulatedTime ? queryTime * (int)simulatedTime/queryTime + queryTime : simulatedTime;
-        return simulatedTime + service.getTargetDeltaTime() > closestQueryTime;
+        return simulatedTime + simulationService.getTargetDeltaTime() > closestQueryTime;
     }
 
     public void setStage(Stage stage){
         this.stage = stage;
+    }
+
+    /**
+     * Sets the target time step for the simulation
+     * @param simulationTime the time to set
+     */
+    void onSimulationTimeSet(double simulationTime) {
+        if (simulationService != null)
+            simulationService.setTargetDeltaTime(simulationTime);
+    }
+
+    /**
+     * Sets the target time step for the query
+     * @param queryTime the time to set
+     */
+    void onQueryTimeSet(double queryTime) {
+        if (simulationService != null)
+            queryService.setTargetDeltaTime(queryTime);
     }
 }

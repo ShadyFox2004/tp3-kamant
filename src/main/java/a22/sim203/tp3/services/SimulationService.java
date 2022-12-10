@@ -1,6 +1,5 @@
 package a22.sim203.tp3.services;
 
-
 import a22.sim203.tp3.exception.InvalidSimulationException;
 import a22.sim203.tp3.simulation.Equation;
 import a22.sim203.tp3.simulation.Variable;
