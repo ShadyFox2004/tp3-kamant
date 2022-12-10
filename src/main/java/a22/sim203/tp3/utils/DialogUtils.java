@@ -4,9 +4,9 @@ import a22.sim203.tp3.simulation.Equation;
 import a22.sim203.tp3.simulation.Variable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
-import org.mariuszgromada.math.mxparser.Function;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Dialogues utilities for 
@@ -65,5 +65,27 @@ public class DialogUtils {
         });
 
         return newVariable[0];
+    }
+
+    /**
+     * Creates a dialogue for asking a question to the user
+     * @param question the question
+     * @param title the title
+     * @param defaultText the default text
+     */
+    public static String askUserDialogue(String question, String title, String defaultText) {
+        final String[] response = new String[1]; //Get a true pointer
+
+        TextInputDialog textInputDialog = new TextInputDialog(defaultText);
+        textInputDialog.setTitle(title);
+        textInputDialog.setContentText(question);
+
+        Optional<String> text = textInputDialog.showAndWait();
+        text.ifPresent(r -> {
+            response[0] = text.get();
+            textInputDialog.close();
+        });
+
+        return response[0];
     }
 }

@@ -1,6 +1,4 @@
 package a22.sim203.tp3.controller;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+
+import static a22.sim203.tp3.utils.DialogUtils.askUserDialogue;
 
 /**
  * Sample Skeleton for 'SimulationEditor.fxml' Controller Class
@@ -52,6 +52,15 @@ public class SimulationEditor extends HBox {
     /**
      * Adds a new simulation
      */
+    public void editSimulationName() {
+        simulationList.getSelectionModel().getSelectedItem();
+        simulationList.getSelectionModel().getSelectedItem().setName(
+                askUserDialogue("new name ",
+                        "Name change for simulation",
+                        simulationList.getSelectionModel().getSelectedItem().getName()));
+    }
+
+
 
     @FXML
     public void addSimulation() {
@@ -120,8 +129,10 @@ public class SimulationEditor extends HBox {
      */
     private void doConfigureEquationList() {
         equationList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         MenuItem addEquation = new MenuItem("add");
         MenuItem removeEquation = new MenuItem("remove");
+        MenuItem editEquation = new MenuItem("edit");
 
         addEquation.setOnAction(event -> {
             Equation newEquation = DialogUtils.createEquationDialogue();
@@ -135,7 +146,15 @@ public class SimulationEditor extends HBox {
             updateEquation();
         });
 
-        equationList.setContextMenu(new ContextMenu(addEquation, removeEquation));
+        editEquation.setOnAction(event -> {
+            String name = equationList.getSelectionModel().getSelectedItem().getExpression();
+            String newName = askUserDialogue("new expression", "Equation expression editing", name);
+            if(newName != null) {
+                equationList.getSelectionModel().getSelectedItem().setName(newName);
+            }
+        });
+
+        equationList.setContextMenu(new ContextMenu(addEquation, editEquation, removeEquation));
         equationList.setDisable(true);
     }
 
@@ -152,7 +171,17 @@ public class SimulationEditor extends HBox {
             removeVariables(variableList.getSelectionModel().getSelectedItems());
             variableList.refresh();
         });
-        variableList.setContextMenu(new ContextMenu(addVariable, removeVariable));
+        MenuItem editVariable =  new MenuItem("edit");
+
+        editVariable.setOnAction(event -> {
+            String name = variableList.getSelectionModel().getSelectedItem().getName();
+            String newName = askUserDialogue("new variable name", "Variable name editing", name);
+            if(newName != null) {
+                variableList.getSelectionModel().getSelectedItem().setName(newName);
+            }
+        });
+
+        variableList.setContextMenu(new ContextMenu(addVariable, editVariable, removeVariable));
         variableList.setCellFactory(new VariableCellFactory());
         variableList.setDisable(true);
 
