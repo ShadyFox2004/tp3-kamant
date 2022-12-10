@@ -213,9 +213,17 @@ public class MainWindow {
             queryService.setPaused(true);
         } else {
             button.setText("Pause");
+            updateStepCountInSimulation();
             simulationService.setPaused(false);
             queryService.setPaused(false);
         }
+    }
+
+    /**
+     * Updates the simulated step count
+     */
+    void updateStepCountInSimulation() {
+        editor.getSimulation().setSimulatedSteps(history.getHistory().getItems().size());
     }
 
     /**
@@ -238,6 +246,7 @@ public class MainWindow {
             simulationService.cancel();
             queryService.cancel();
             simulator.clear();
+            updateStepCountInSimulation();
         }
     }
 

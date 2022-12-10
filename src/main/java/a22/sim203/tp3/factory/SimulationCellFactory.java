@@ -23,7 +23,7 @@ public class SimulationCellFactory implements Callback<ListView<Simulation>, Lis
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(item.getName());
+                    setText(item.getName() + " | " + item.getSimulatedSteps() + " steps");
                 }
             }
         };
