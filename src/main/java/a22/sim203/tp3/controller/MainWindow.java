@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -213,17 +212,9 @@ public class MainWindow {
             queryService.setPaused(true);
         } else {
             button.setText("Pause");
-            updateStepCountInSimulation();
             simulationService.setPaused(false);
             queryService.setPaused(false);
         }
-    }
-
-    /**
-     * Updates the simulated step count
-     */
-    void updateStepCountInSimulation() {
-        editor.getSimulation().setSimulatedSteps(history.getHistory().getItems().size());
     }
 
     /**
@@ -237,7 +228,7 @@ public class MainWindow {
             queryService = new QueryService(simulationService, Double.parseDouble(controlMenu.queryTime.getText()));
             history.setHistory(new State(editor.getState()));
             simulationService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) update(newValue);});
-            queryService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) updateDisplay(newValue);});
+            queryService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) updateUI(newValue);});
             simulationService.restart();
             queryService.restart();
         } else {
@@ -245,7 +236,6 @@ public class MainWindow {
             simulationService.cancel();
             queryService.cancel();
             simulator.clear();
-            updateStepCountInSimulation();
         }
     }
 
@@ -262,9 +252,10 @@ public class MainWindow {
      * @param state the new state
      */
 
-    void updateDisplay(State state){
+    void updateUI(State state){
         simulator.update(state);
         view2D.update(state);
+        editor.update(history.getHistory().getItems().size());
     }
 
     public void setStage(Stage stage){
