@@ -21,7 +21,7 @@ public class Simulation implements Serializable {
     }
 
     public Simulation(){
-        name = "Simulation par défault";
+        name = "new simulation";
         history = new ArrayList<>();
     }
 
