@@ -238,7 +238,6 @@ public class MainWindow {
             history.setHistory(new State(editor.getState()));
             simulationService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) update(newValue);});
             queryService.valueProperty().addListener((observable, oldValue, newValue) -> {if (newValue != null) updateDisplay(newValue);});
-            simulationService.setOnFailed((event -> {System.out.println(event.getSource().getException());}));
             simulationService.restart();
             queryService.restart();
         } else {
