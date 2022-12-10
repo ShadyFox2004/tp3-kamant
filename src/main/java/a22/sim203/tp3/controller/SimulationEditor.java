@@ -118,8 +118,8 @@ public class SimulationEditor extends HBox {
     private static Simulation newSimulationTemplate() {
         Simulation simulation = new Simulation();
         Map<String, Variable> variables = new HashMap<>();
-        variables.put("dt", new Variable("dt", 3));
-        variables.put("t", new Variable("t", 3));
+        variables.put("dt", new Variable("dt", 0));
+        variables.put("t", new Variable("t", 0));
         simulation.addInHistory(new State(variables));
         return simulation;
     }
