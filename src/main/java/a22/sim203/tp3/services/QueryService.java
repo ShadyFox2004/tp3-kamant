@@ -52,8 +52,8 @@ public class QueryService extends Service<State> {
 
         @Override
         protected a22.sim203.tp3.simulation.State call() throws Exception {
-            while (!paused && !isCancelled()) {
-                if (lastState != null)
+            while (!isCancelled()) {
+                if (lastState != null && !paused)
                     updateValue(lastState);
                 Thread.sleep((long) targetDeltaTime * 1000);
             }

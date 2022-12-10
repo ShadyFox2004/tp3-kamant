@@ -30,6 +30,9 @@ import java.util.function.BiConsumer;
  */
 public class History extends HBox {
 
+    @FXML
+    private TableView<State> historyTable;
+
     /**
      * Creates a history object
      * @throws IOException
@@ -39,10 +42,8 @@ public class History extends HBox {
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
+        historyTable.setFixedCellSize(40);
     }
-
-    @FXML
-    private TableView<State> historyTable;
 
     /**
      * Set the history with the new state
@@ -76,22 +77,6 @@ public class History extends HBox {
     protected void update(State newState) {
         historyTable.getItems().add(newState);
         historyTable.scrollTo(newState);
-    }
-
-    /**
-     * Returns the state that is selected in the ListView
-     * @return the state that is selected in the ListView
-     */
-    protected State getSelectedState() {
-        return historyTable.getSelectionModel().getSelectedItem();
-    }
-
-    /**
-     * Sets the state of the selected variables in the order of the array
-     * If null is passed for a selected state, it will remain unchanged
-     */
-    protected void setSelectedState(State state){
-        historyTable.getSelectionModel().select(state);
     }
 
     /**

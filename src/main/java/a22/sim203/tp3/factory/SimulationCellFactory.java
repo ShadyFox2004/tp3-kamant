@@ -8,8 +8,6 @@ import javafx.util.Callback;
 
 /**
  * Factory for SimulationCell
- * Serves one purpose: be refactored
- * TODO clean that garbage
  */
 public class SimulationCellFactory implements Callback<ListView<Simulation>, ListCell<Simulation>> {
     @Override
