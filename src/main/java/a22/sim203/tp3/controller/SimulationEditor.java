@@ -2,6 +2,7 @@ package a22.sim203.tp3.controller;
 import java.io.IOException;
 import java.util.*;
 
+import a22.sim203.tp3.factory.EquationCellFactory;
 import a22.sim203.tp3.factory.SimulationCellFactory;
 import a22.sim203.tp3.factory.VariableCellFactory;
 import a22.sim203.tp3.simulation.Equation;
@@ -50,18 +51,26 @@ public class SimulationEditor extends HBox {
     private View2D view2D;
 
     /**
-     * Adds a new simulation
+     * Edits the selected simulation in the list
      */
     public void editSimulationName() {
-        simulationList.getSelectionModel().getSelectedItem();
-        simulationList.getSelectionModel().getSelectedItem().setName(
-                askUserDialogue("new name ",
-                        "Name change for simulation",
-                        simulationList.getSelectionModel().getSelectedItem().getName()));
+        Simulation selectedSimulation = simulationList.getSelectionModel().getSelectedItem();
+        if (selectedSimulation != null) { // Is something selected?
+            String name = selectedSimulation.getName();
+            String newName = askUserDialogue("Changing the name of the simulation for",
+                    "Changing simulation name",
+                    name);
+            if (newName != null) { // Is something entered?
+                selectedSimulation.setName(newName);
+                simulationList.refresh();
+            }
+        }
     }
 
 
-
+    /**
+     * Adds a simulation
+     */
     @FXML
     public void addSimulation() {
         Simulation simulation = newSimulationTemplate();
@@ -106,9 +115,29 @@ public class SimulationEditor extends HBox {
     }
 
     private void doConfigureSimulationList() {
-        simulationList.setItems(FXCollections.observableList(new ArrayList<>()));
+        MenuItem addSimulation = new MenuItem("add");
+        MenuItem removeSimulation = new MenuItem("remove");
+        MenuItem editSimulation = new MenuItem("edit");
+
+        addSimulation.setOnAction(event -> {
+            addSimulation();
+        });
+        removeSimulation.setOnAction(event -> {
+            removeSimulation();
+        });
+        editSimulation.setOnAction(event -> {
+            editSimulationName();
+        });
+
+        simulationList.setContextMenu(new ContextMenu(addSimulation,editSimulation,removeSimulation));
         simulationList.setCellFactory(new SimulationCellFactory());
         simulationList.setOnMousePressed(event -> updateVariable());
+        simulationList.setOnContextMenuRequested(event -> {
+            // Disable editing and removing if no item
+            boolean disable = (simulationList.getItems().size() == 0);
+            editSimulation.setDisable(disable);
+            removeSimulation.setDisable(disable);
+        });
     }
 
     /**
@@ -147,15 +176,25 @@ public class SimulationEditor extends HBox {
         });
 
         editEquation.setOnAction(event -> {
-            String name = equationList.getSelectionModel().getSelectedItem().getExpression();
-            String newName = askUserDialogue("new expression", "Equation expression editing", name);
-            if(newName != null) {
-                equationList.getSelectionModel().getSelectedItem().setName(newName);
+            Equation selectedEquation  = equationList.getSelectionModel().getSelectedItem();
+            if (selectedEquation != null) {
+                String name = selectedEquation.getExpression();
+                String newName = askUserDialogue("new expression", "Equation expression editing", name);
+                if (newName != null) {
+                    equationList.getSelectionModel().getSelectedItem().setExpression(newName);
+                }
             }
         });
 
         equationList.setContextMenu(new ContextMenu(addEquation, editEquation, removeEquation));
         equationList.setDisable(true);
+        equationList.setCellFactory(new EquationCellFactory());
+        equationList.setOnContextMenuRequested(event -> {
+            // Disable editing and removing if no item
+            boolean disable = (equationList.getItems().size() == 0);
+            editEquation.setDisable(disable);
+            removeEquation.setDisable(disable);
+        });
     }
 
     /**

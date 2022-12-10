@@ -1,7 +1,6 @@
 package a22.sim203.tp3.controller;
 import a22.sim203.tp3.SimulationApp;
 import a22.sim203.tp3.exception.IncorrectSyntaxException;
-import a22.sim203.tp3.factory.ExpressionCellFactory;
 import a22.sim203.tp3.factory.FunctionCellFactory;
 import a22.sim203.tp3.utils.DialogUtils;
 import javafx.animation.ScaleTransition;
