@@ -77,8 +77,8 @@ public class DialogUtils {
         final String[] response = new String[1]; //Get a true pointer
 
         TextInputDialog textInputDialog = new TextInputDialog(defaultText);
+        textInputDialog.setHeaderText(question);
         textInputDialog.setTitle(title);
-        textInputDialog.setContentText(question);
 
         Optional<String> text = textInputDialog.showAndWait();
         text.ifPresent(r -> {

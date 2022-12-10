@@ -174,11 +174,13 @@ public class SimulationEditor extends HBox {
         MenuItem editVariable =  new MenuItem("edit");
 
         editVariable.setOnAction(event -> {
-            String name = variableList.getSelectionModel().getSelectedItem().getName();
-            String newName = askUserDialogue("new variable name", "Variable name editing", name);
-            if(newName != null) {
-                variableList.getSelectionModel().getSelectedItem().setName(newName);
-            }
+            filterCritical(Collections.singleton(variableList.getSelectionModel().getSelectedItem())).forEach(variable -> {
+                String name = variable.getName();
+                String newName = askUserDialogue("Editing the variable name", "Variable name editing", name);
+                if(newName != null) {
+                    variable.setName(newName);
+                }
+            });
         });
 
         variableList.setContextMenu(new ContextMenu(addVariable, editVariable, removeVariable));
@@ -186,7 +188,6 @@ public class SimulationEditor extends HBox {
         variableList.setDisable(true);
 
         //EVENTS
-
         variableList.setOnMousePressed(event -> {
             updateEquation();
             simulator.setTrackedVariables(getSelectedVariables());
@@ -293,9 +294,7 @@ public class SimulationEditor extends HBox {
      */
     public void removeVariables(Collection<Variable> variables) {
         if (variables != null) {
-            variables = variables.stream().filter(variable -> {
-                return !variable.getName().matches("(t)|(dt)|(STOP)");
-            }).toList(); //Filters the vars for important ones
+            variables = filterCritical(variables);
 
             variableList.getItems().removeAll(variables);
             getState().removeVariables(variables);
@@ -309,5 +308,17 @@ public class SimulationEditor extends HBox {
     public void update(int steps){
         simulationList.refresh();
         getSimulation().setSimulatedSteps(steps);
+    }
+
+    /**
+     * Remove the critical variable from the selection
+     * @param variables collection to filter
+     * @return filtered collection
+     */
+    public Collection<Variable> filterCritical(Collection<Variable> variables) {
+        variables = variables.stream().filter(variable -> {
+            return !variable.getName().matches("(t)|(dt)|(STOP)");
+        }).toList(); //Filters the vars for important ones
+        return(variables);
     }
 }
