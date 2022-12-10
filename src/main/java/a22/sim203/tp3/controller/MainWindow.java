@@ -224,6 +224,7 @@ public class MainWindow {
         Button button = ((Button)e.getSource());
         if (button.getText().equals("Start")){
             button.setText("Reset");
+            editor.setDisable(true);
             simulationService = new SimulationService(new State(editor.getState()), Double.parseDouble(controlMenu.simulationTime.getText()));
             queryService = new QueryService(simulationService, Double.parseDouble(controlMenu.queryTime.getText()));
             history.setHistory(new State(editor.getState()));
@@ -232,6 +233,7 @@ public class MainWindow {
             simulationService.restart();
             queryService.restart();
         } else {
+            editor.setDisable(false);
             button.setText("Start");
             simulationService.cancel();
             queryService.cancel();
