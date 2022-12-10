@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 
@@ -34,18 +35,12 @@ public class Simulator extends HBox {
         loader.setRoot(this);
         loader.load();
     }
-
-
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
-
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
     @FXML // fx:id="simulationChart"
     private LineChart<Number, Number> simulationChart; // Value injected by FXMLLoader
 
     private String[] variables;
+    @FXML
+    private Label timeLabel;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
@@ -78,6 +73,7 @@ public class Simulator extends HBox {
         else
             for (int i = 0; i < variables.length; i++)
                 simulationChart.getData().get(i).getData().add(new XYChart.Data<>(state.getVariable("t").getValue(), state.getVariable(variables[i]).getValue()));
+        timeLabel.setText("time : " + String.format("%.2f", state.getVariable("t").getValue()) + "s");
     }
 
     /**

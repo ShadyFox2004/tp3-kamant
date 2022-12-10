@@ -301,4 +301,13 @@ public class SimulationEditor extends HBox {
             getState().removeVariables(variables);
         }
     }
+
+    /**
+     * Updates the editor when a new frame is generated
+     * @param steps the number of steps simulated
+     */
+    public void update(int steps){
+        simulationList.refresh();
+        getSimulation().setSimulatedSteps(steps);
+    }
 }
