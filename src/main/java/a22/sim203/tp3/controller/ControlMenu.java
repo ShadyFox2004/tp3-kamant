@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
@@ -40,7 +41,10 @@ public class ControlMenu extends VBox {
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
-        this.addEventFilter(KeyEvent.KEY_TYPED, (event)-> {if (!event.getCharacter().matches("[0-9.]")) event.consume();} );
+        addEventFilter(KeyEvent.KEY_TYPED, (event)-> {if (!event.getCharacter().matches("[0-9.]")) event.consume();});
+        simulationTime.focusedProperty().addListener((observable, oldValue, newValue) -> window.onSimulationTimeSet(Double.parseDouble(simulationTime.getText())));
+        queryTime.focusedProperty().addListener((observable, oldValue, newValue) -> window.onQueryTimeSet(Double.parseDouble(queryTime.getText())));
+
     }
 
     /**
@@ -61,9 +65,14 @@ public class ControlMenu extends VBox {
         window.onStartReset(event);
     }
 
-
+    /**
+     * Sets a reference to the main window
+     * @param window the main window
+     */
     public void setWindow(MainWindow window) {
         this.window = window;
     }
+
+
 
 }
