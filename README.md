@@ -1,5 +1,9 @@
 # tp3-kamant
 
+WON THE 100% GRADE
+![image](https://user-images.githubusercontent.com/59147059/209203062-b219f65f-8ab5-4c57-8576-ed65a1120ec9.png)
+
+
 Un projet qui ne vas pas se terminer a la derniere minute.
 
  ***Développement de programmes dans un*** & Simulateur linéaire
@@ -43,7 +47,7 @@ Département dinformatique & (20 %)\
     minimales demandées.
 
 2.  Le UI doit comprendre
-
+amboubreau.amb@gmail.com
     1.  Un éditeur de simulation
 
         1.  Léditeur de simulation doit comprendre au moins 3
@@ -174,7 +178,7 @@ Département dinformatique & (20 %)\
             dans le TP2. On va le modifier légèrement:
 
             1.  Au lieu davoir une liste de fonction personnalisée, on
-                utilisera les équations du simulateur. Les équations
+                utilisera les équationsamboubreau.amb@gmail.com du simulateur. Les équations
 
             2.  Il faut ajouter un moyen (bouton, menu contextuel...)
                 pour permettre à lutilisateur de transférer la
