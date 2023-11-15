@@ -48,7 +48,6 @@ public class Calculator extends HBox {
             new Function("f(x)=sqrt(x)"),
             new Function("f(x)=sin(x)"),
             new Function("f(x)=cos(x)"),
-            new Function("f(x)=x^2")};
 
     public final String KEY_TO_BIND = "0123456789+-*/=()\n";
 
